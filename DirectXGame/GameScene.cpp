@@ -36,11 +36,11 @@ void GameScene::Initialize() {
 // ゲームシーンの更新
 void GameScene::Update() {
 
-	#ifdef DEBUG
-		ImGui::Begin("Debug1");
+	
+		//ImGui::Begin("Debug1");
 		ImGui::Text("Kamata Tarou %d.%d.%d",2050,12,31);
-		ImGui::End();
-	#endif // DEBUG
+		//ImGui::End();
+	//#endif // DEBUG
 
 
 Vector2 position = sprite_->GetPosition();
