@@ -6,10 +6,7 @@ using namespace KamataEngine;
 //
 //GameScene::~GameScene() {}
 //  ゲームシーンの初期化
-void GameScene::Initialize() {
-
-  
-}
+void GameScene::Initialize() {}
 // ゲームシーンの更新
 void GameScene::Update() {}
 // ゲームシーンの描画
