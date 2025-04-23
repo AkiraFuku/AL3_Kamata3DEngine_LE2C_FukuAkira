@@ -16,5 +16,5 @@ void Player::Update() {
 }
 
 void Player::Draw() { 
-	model_->Draw(worldTransform_, camera_,textureHandle_ );
+	model_->Draw(worldTransform_, camera_,textureHandle_);
 }

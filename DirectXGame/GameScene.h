@@ -12,7 +12,7 @@ private:
 	//
 	
 	// カメラ
-	KamataEngine::Camera camera_;
+	KamataEngine::Camera* camera_;
 	// 自キャラ
 	Player* player_=nullptr;
 
