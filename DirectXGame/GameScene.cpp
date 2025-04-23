@@ -17,7 +17,7 @@ void GameScene::Initialize() {
 	camera_.Initialize();
 	//自キャラ生成
 	player_ = new Player();
-	player_->Initialize(model_,teXtureHandle_);
+	player_->Initialize(model_,teXtureHandle_,&camera_);
 }
 // ゲームシーンの更新
 void GameScene::Update() {

@@ -11,7 +11,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model,uint32_t textureHandle);
+	void Initialize(Model* model,uint32_t textureHandle,Camera* camera);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -24,5 +24,5 @@ private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル
 	uint32_t textureHandle_ = 0u;    ///< テクスチャハンドル
-
+	Camera* camera_=nullptr;      ///< カメラ
 };
