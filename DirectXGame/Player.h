@@ -11,9 +11,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model,uint32_t textureHandle
-	//	,Camera* camera
-	);
+	void Initialize(Model* model,uint32_t textureHandle,Camera* camera);
 	/// <summary>
 	/// 更新
 	/// </summary>

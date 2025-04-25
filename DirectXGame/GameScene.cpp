@@ -14,12 +14,10 @@ void GameScene::Initialize() {
 	model_=Model::Create();
 	
 	
-	camera_->Initialize();
+	camera_.Initialize();
 	//自キャラ生成
 	player_ = new Player();
-	player_->Initialize(model_,teXtureHandle_
-	//	,camera_
-	);
+	player_->Initialize(model_,teXtureHandle_,&camera_);
 }
 // ゲームシーンの更新
 void GameScene::Update() {
@@ -27,5 +25,12 @@ player_->Update();
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 
+
+	DirectXCommon* dxCommon =DirectXCommon::GetInstance();
+
+	Model::PreDraw(dxCommon->GetCommandList() );
+	// カメラの描画
 	player_->Draw();
+
+	Model::PostDraw();
 }
