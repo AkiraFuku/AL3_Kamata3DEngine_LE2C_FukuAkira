@@ -2,8 +2,10 @@
 #include "KamataEngine.h"
 #include "Player.h"
 #include <vector>
+#include "MassFunction.h"
 
 using namespace KamataEngine ;
+
 
 class GameScene {
 private:

@@ -48,6 +48,13 @@ void GameScene::Initialize() {
 // ゲームシーンの更新
 void GameScene::Update() {
 player_->Update();
+	///// ブロックの更新
+	for (WorldTransform*WorldTransformBlock:WorldTransformBlocks_  ) {
+		//アフィン変換
+		
+
+
+	}
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 
