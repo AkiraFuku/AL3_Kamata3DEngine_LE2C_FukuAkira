@@ -10,14 +10,16 @@ GameScene::~GameScene() {
 }
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
-	teXtureHandle_ = TextureManager::Load("");
+	teXtureHandle_ = TextureManager::Load("img_thumb_08_01.png");
 	model_=Model::Create();
 	
 	
-	camera_.Initialize();
+	camera_->Initialize();
 	//自キャラ生成
 	player_ = new Player();
-	player_->Initialize(model_,teXtureHandle_,camera_);
+	player_->Initialize(model_,teXtureHandle_
+	//	,camera_
+	);
 }
 // ゲームシーンの更新
 void GameScene::Update() {

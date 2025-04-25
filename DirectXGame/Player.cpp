@@ -1,13 +1,17 @@
 #include "Player.h"
 
-void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera) { 
+void Player::Initialize(Model* model,uint32_t textureHandle
+	//,Camera* camera
+) { 
 	assert(model);
 	/// 引数をメンバ変数に格納
+	/// モデル
 	model_ = model;
+	// テクスチャハンドル
 	textureHandle_ = textureHandle;
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-	camera_=camera;
+	//camera_=camera;
 }
 
 void Player::Update() {
@@ -16,5 +20,5 @@ void Player::Update() {
 }
 
 void Player::Draw() { 
-	model_->Draw(worldTransform_, *camera_,textureHandle_);
+	//model_->Draw(worldTransform_, *camera_,textureHandle_);
 }
