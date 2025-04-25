@@ -1,12 +1,18 @@
 #pragma once
 #include "KamataEngine.h"
 #include "Player.h"
+#include <vector>
 
-// ゲームシーン
+using namespace KamataEngine ;
+
 class GameScene {
 private:
 	//3Dモデル
-	KamataEngine::Model* model_ = nullptr;
+	Model* model_ = nullptr;
+	
+	Model* blockM_ = nullptr;
+
+
 	// texture
 	uint32_t teXtureHandle_ = 0;
 	//
@@ -15,6 +21,7 @@ private:
 	KamataEngine::Camera camera_;
 	// 自キャラ
 	Player* player_=nullptr;
+	std::vector<WorldTransform*> WorldTransformBlocks_;
 
 
 public:
