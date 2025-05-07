@@ -23,7 +23,7 @@ private:
 	KamataEngine::Camera camera_;
 	// 自キャラ
 	Player* player_=nullptr;
-	std::vector<WorldTransform*> WorldTransformBlocks_;
+	std::vector<std::vector<WorldTransform*>> WorldTransformBlocks_;
 
 
 public:

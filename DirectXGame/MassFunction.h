@@ -1,21 +1,33 @@
 #pragma once
 #include <KamataEngine.h>
 //
-// #include <Novice.h>
+ //#include <Novice.h>
 #define _USE_MATH_DEFINES
-#include <math.h>
+#include <cmath>
 
 #include <assert.h>
 using namespace KamataEngine;
+///using namespace std;
 static const int kColumnWidth = 60;
 static const int kRowHeight = 20;
 
+//void MatrixScreenPrintf(int x, int y,const Matrix4x4& m, const char* label);
+//void VectorScreenPrintf( int x, int y,Vector3& vector, const char* label);
+
+Matrix4x4 MakeAfineMatrix(const Vector3& scale,const Vector3& rotate,const Vector3& traslate);
 Matrix4x4 MakeTranslateMatrix(const Vector3& traslate);
 Matrix4x4 MakeScaleMatrix(const Vector3& scale);
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="vector"></param>
+/// <param name="matrix"></param>
+/// <returns></returns>
 Vector3  Transform(const Vector3& vector, const Matrix4x4& matrix);
 
-Matrix4x4 MakeRotateMatrix(const Vector3& rotation);
+Matrix4x4 MakeRotateXMatrix( float radian);
+Matrix4x4 MakeRotateYMatrix( float radian);
+Matrix4x4 MakeRotateZMatrix( float radian);
 
 
 

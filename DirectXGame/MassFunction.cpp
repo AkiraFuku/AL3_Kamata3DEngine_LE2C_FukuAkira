@@ -4,8 +4,39 @@
 // 
 // 
 // 
+//void MatrixScreenPrintf(int x, int y, const Matrix4x4& m, const char* label)
+//{
+//	Novice::ScreenPrintf(x, y, "%s", label);
+//	for (int i = 0; i < 4; i++){
+//		for (int j = 0; j < 4; j++){
+//
+//			Novice::ScreenPrintf(x + kColumnWidth * (j), y + kRowHeight * (i+1), "%6.02f", m.m[i][j]);
+//		}
+//	}
+//}
+	/*void VectorScreenPrintf(int x, int y, Vector3& vector, const char* label){
+		Novice::ScreenPrintf(x, y, "%.02f", vector.x);
+		Novice::ScreenPrintf(x + kColumnWidth, y, "%.02f", vector.y);
+		Novice::ScreenPrintf(x + kColumnWidth * 2, y, "%.02f", vector.z);
+		Novice::ScreenPrintf(x + kColumnWidth * 3, y, "%s", label);
+	}*/
 
+	Matrix4x4 MakeAfineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& traslate)
+	{
+		Matrix4x4 scaleMatrix=MakeScaleMatrix(scale);
+		Matrix4x4 rotateMatrix=Multiply(MakeRotateXMatrix( rotate.x),Multiply(MakeRotateYMatrix( rotate.y),MakeRotateZMatrix( rotate.z)));
+		Matrix4x4 traslateMatrix=MakeTranslateMatrix(traslate);
 
+		Matrix4x4 result=Multiply(scaleMatrix,Multiply(rotateMatrix,traslateMatrix));
+
+		return result ;
+	}
+
+	/// <summary>
+/// 
+/// </summary>
+/// <param name="traslate"></param>
+/// <returns></returns>
 Matrix4x4 MakeTranslateMatrix(const Vector3& traslate){
 	return Matrix4x4(
 		{
@@ -18,6 +49,11 @@ Matrix4x4 MakeTranslateMatrix(const Vector3& traslate){
 		}
 	);
 }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="scale"></param>
+/// <returns></returns>
 Matrix4x4 MakeScaleMatrix(const Vector3& scale){
 	return Matrix4x4(
 		{
@@ -30,6 +66,12 @@ Matrix4x4 MakeScaleMatrix(const Vector3& scale){
 		}
 	);
 }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="vector"></param>
+/// <param name="matrix"></param>
+/// <returns></returns>
 Vector3 Transform(const Vector3& vector,const Matrix4x4& matrix ){
 	Vector3 result ;
 	result.x=vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] +vector.z*matrix.m[2][0]+ 1.0f * matrix.m[3][0];
@@ -46,6 +88,45 @@ Vector3 Transform(const Vector3& vector,const Matrix4x4& matrix ){
 	result.y /= w;
 	result.z /= w;
 	return result;
+}
+/// <summary>
+/// 
+/// </summary>
+/// <param name="radian"></param>
+/// <returns></returns>
+Matrix4x4 MakeRotateXMatrix(float radian)
+{
+	return Matrix4x4(
+	{
+		{1.0f,0.0f,0.0f,0.0f,},
+		{0.0f,std::cos(radian),std::sin(radian),0.0f},	
+		{0.0f,-std::sin(radian),std::cos(radian),0.0f},
+		{0.0f,0.0f,0.0f,1.0f}
+	}
+	);
+}
+Matrix4x4 MakeRotateYMatrix(float radian)
+{
+	return Matrix4x4(
+		{
+		{std::cos(radian),0.0f,-std::sin(radian),0.0f,},
+		{0.0f,1.0f,0.0f,0.0f},	
+		{std::sin(radian),0.0f,std::cos(radian),0.0f},
+		{0.0f,0.0f,0.0f,1.0f}
+	}
+	);
+}
+Matrix4x4 MakeRotateZMatrix(float radian)
+{
+	return Matrix4x4(
+	{
+		
+		{std::cos(radian),std::sin(radian),0.0f,0.0f},	
+		{-std::sin(radian),std::cos(radian),0.0f,0.0f},
+		{0.0f,0.0f,1.0f,0.0f,},
+		{0.0f,0.0f,0.0f,1.0f}
+	}
+	);
 }
 //
 	Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2){
