@@ -47,6 +47,11 @@ void GameScene::Initialize() {
 	//キューブの生成
 	for (uint32_t i = 0; i < kNumBlockVertical; i++) {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+			if (i%2==1) {
+				if (j%2=0) {
+					return;
+				}
+			}
 		WorldTransformBlocks_[i][j] = new WorldTransform();
 		WorldTransformBlocks_[i][j]->Initialize();
 		WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
@@ -64,6 +69,8 @@ player_->Update();
 	///// ブロックの更新
 	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
+			if (!WorldTransformBlock) {continue;
+			}
 			//アフィン変換
 			WorldTransformBlock->matWorld_ = MakeAfineMatrix(
 			WorldTransformBlock->scale_,
