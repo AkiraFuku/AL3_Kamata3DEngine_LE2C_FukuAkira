@@ -17,6 +17,8 @@ GameScene::~GameScene() {
 	}
 	
 	WorldTransformBlocks_.clear();
+	// デバッグカメラの解放
+	delete debugCamera_;
 }
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
@@ -47,18 +49,20 @@ void GameScene::Initialize() {
 	//キューブの生成
 	for (uint32_t i = 0; i < kNumBlockVertical; i++) {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
-			if (i%2==1) {
-				if (j%2=0) {
-					return;
-				}
-			}
-		WorldTransformBlocks_[i][j] = new WorldTransform();
-		WorldTransformBlocks_[i][j]->Initialize();
-		WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
-		WorldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
+			if ((i+j)%2==1) {continue;}
+			
+					WorldTransformBlocks_[i][j] = new WorldTransform()	;
+					WorldTransformBlocks_[i][j]->Initialize();
+					WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
+					WorldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
+		
+					
+		
+			
 		}
 	}
-	
+	// デバッグカメラの生成
+	debugCamera_ = new DebugCamera(WinApp::kWindowWidth,WinApp::kWindowHeight);
 
 
 
@@ -69,8 +73,7 @@ player_->Update();
 	///// ブロックの更新
 	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
-			if (!WorldTransformBlock) {continue;
-			}
+			if (!WorldTransformBlock) {continue;}
 			//アフィン変換
 			WorldTransformBlock->matWorld_ = MakeAfineMatrix(
 			WorldTransformBlock->scale_,
@@ -97,9 +100,31 @@ void GameScene::Draw() {
 	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
 
 		for (WorldTransform* WorldTransformBlock :worldTransformBlockLine ) {
+			if (!WorldTransformBlock) {continue;}
 			blockM_->Draw(*WorldTransformBlock,camera_);
 		}
 	}
 
 	Model::PostDraw();
+
+	#ifdef _DEBUG
+	if (Input::GetInstance()->TriggerKey(DIK_TAB)) {
+		if (!isDebugCameraActive_) {
+			isDebugCameraActive_ = true;
+		} else {
+			isDebugCameraActive_ = false;
+		}
+	}
+	#endif // _DEBUG
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		camera_.matView = debugCamera_->GetCamera().matView;
+		camera_.matProjection = debugCamera_->GetCamera().matProjection;
+		//
+		camera_.TransferMatrix();
+	} else {
+		camera_.TransferMatrix();
+	}
+
+	
 }

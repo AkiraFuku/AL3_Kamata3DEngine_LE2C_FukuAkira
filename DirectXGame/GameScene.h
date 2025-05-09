@@ -24,6 +24,9 @@ private:
 	// 自キャラ
 	Player* player_=nullptr;
 	std::vector<std::vector<WorldTransform*>> WorldTransformBlocks_;
+	bool isDebugCameraActive_ = false;
+	// デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
 
 
 public:
