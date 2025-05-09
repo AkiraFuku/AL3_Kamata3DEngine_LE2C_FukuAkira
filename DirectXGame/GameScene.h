@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <vector>
 #include "MassFunction.h"
+#include "Skydome.h"
 
 using namespace KamataEngine ;
 
@@ -27,7 +28,10 @@ private:
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
+	// スカイドーム
+	Skydome* skydome_ = nullptr;
+	// スカイドームのモデル
+	Model* modelSkydome_ = nullptr;
 
 public:
 	

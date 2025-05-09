@@ -19,12 +19,17 @@ GameScene::~GameScene() {
 	WorldTransformBlocks_.clear();
 	// デバッグカメラの解放
 	delete debugCamera_;
+	// スカイドームの解放
+	delete skydome_;
+	// スカイドームのモデルの解放
+	delete modelSkydome_;
 }
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
 	teXtureHandle_ = TextureManager::Load("img_thumb_08_01.png");
 	// モデルの生成
 	model_=Model::Create();
+	
 	
 	
 	camera_.Initialize();
@@ -63,13 +68,17 @@ void GameScene::Initialize() {
 	}
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth,WinApp::kWindowHeight);
-
+	// スカイドームのモデル生成
+	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
+	skydome_ = new Skydome();
+	skydome_->Initialize(modelSkydome_,&camera_);
+	
 
 
 }
 // ゲームシーンの更新
 void GameScene::Update() {
-player_->Update();
+	player_->Update();
 	///// ブロックの更新
 	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
@@ -87,10 +96,12 @@ player_->Update();
 
 		}
 	}
+	// スカイドームの更新
+	skydome_->Update();
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 
-
+	///
 	DirectXCommon* dxCommon =DirectXCommon::GetInstance();
 
 	Model::PreDraw(dxCommon->GetCommandList() );
@@ -104,7 +115,9 @@ void GameScene::Draw() {
 			blockM_->Draw(*WorldTransformBlock,camera_);
 		}
 	}
-
+	// スカイドームの描画
+	skydome_->Draw();
+	///
 	Model::PostDraw();
 
 	#ifdef _DEBUG
@@ -125,6 +138,7 @@ void GameScene::Draw() {
 	} else {
 		camera_.TransferMatrix();
 	}
+	
 
 	
 }
