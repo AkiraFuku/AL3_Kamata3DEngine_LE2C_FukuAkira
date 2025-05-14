@@ -23,6 +23,8 @@ GameScene::~GameScene() {
 	delete skydome_;
 	// スカイドームのモデルの解放
 	delete modelSkydome_;
+	// マップチップフィールドの解放
+	delete mapchipField_;
 }
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
@@ -50,6 +52,9 @@ void GameScene::Initialize() {
 	for (uint32_t i = 0; i < kNumBlockVertical; i++) {
 		WorldTransformBlocks_[i].resize(kNumBlockHorizontal);
 	}
+	// マップチップフィールドの生成
+	mapchipField_ = new MapchipField();
+	mapchipField_->LoadMapChipCsv("Resources/blocks.csv");
 
 	//キューブの生成
 	for (uint32_t i = 0; i < kNumBlockVertical; i++) {

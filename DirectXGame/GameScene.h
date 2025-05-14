@@ -4,6 +4,7 @@
 #include <vector>
 #include "MassFunction.h"
 #include "Skydome.h"
+#include "MapchipField.h"
 
 using namespace KamataEngine ;
 
@@ -32,6 +33,8 @@ private:
 	Skydome* skydome_ = nullptr;
 	// スカイドームのモデル
 	Model* modelSkydome_ = nullptr;
+	// mapchipField
+	 MapchipField* mapchipField_ ;
 
 public:
 	

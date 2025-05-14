@@ -26,7 +26,7 @@ class MapchipField {
 	MapChipData mapChipData_; ///< マップチップデータ
 public:
 	void ResetMapChipData();
-	void LoadMapChipData(const std::string& filePath);
+	void LoadMapChipCsv(const std::string& filePath);
 	MapChipType GetMapChipTypeByIndex(uint32_t xIndex,uint32_t yIndex) ;
 	Vector3 GetBlockPositionByIndex(uint32_t xIndex, uint32_t yIndex) ;
 };

@@ -19,7 +19,7 @@ void MapchipField::ResetMapChipData() {
 	}
 }
 
-void MapchipField::LoadMapChipData(const std::string& filePath) {
+void MapchipField::LoadMapChipCsv(const std::string& filePath) {
     ResetMapChipData();
     //
 	std::ifstream file;
