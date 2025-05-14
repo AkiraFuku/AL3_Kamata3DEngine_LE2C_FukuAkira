@@ -24,4 +24,8 @@ class MapchipField {
 	    // ブロックの列数
 	static inline const uint32_t kNumBlockHorizontal = 20;
 	MapChipData mapChipData_; ///< マップチップデータ
+public:
+	void ResetMapChipData();
+	void LoadMapChipData(const std::string& filePath);
 };
+
