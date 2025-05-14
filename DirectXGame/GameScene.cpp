@@ -28,7 +28,7 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 	teXtureHandle_ = TextureManager::Load("img_thumb_08_01.png");
 	// モデルの生成
-	model_=Model::Create();
+	model_= Model::CreateFromOBJ("player",true);
 	
 	
 	
@@ -37,7 +37,7 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	player_->Initialize(model_,teXtureHandle_,&camera_);
 	//	//ブロックモデル生成
-	blockM_ = Model::Create();
+	blockM_ = Model::CreateFromOBJ("block",true);
 	///ブロック要素数
 	 const uint32_t kNumBlockVertical = 10;
 	const uint32_t kNumBlockHorizontal = 20;

@@ -1,5 +1,6 @@
 #pragma once
 #include "KamataEngine.h"
+#include "MassFunction.h"
 using namespace KamataEngine;
 /// <summary>
 /// 自キャラ
