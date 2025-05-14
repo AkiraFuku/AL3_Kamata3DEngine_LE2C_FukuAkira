@@ -2,6 +2,8 @@
 #include <map>
 #include <fstream>
 #include <sstream>
+#include <cassert>
+#include <string>
 namespace{
     std::map<std::string, MapChipType> mapChipTable= {
      {"0", MapChipType::kBlank},
@@ -41,4 +43,18 @@ void MapchipField::LoadMapChipData(const std::string& filePath) {
 			} 
 		}
 	}
+}
+
+MapChipType MapchipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) { 
+	if (xIndex<0||kNumBlockHorizontal-1<xIndex) {
+		return MapChipType::kBlank;
+	}
+	if (yIndex < 0 || kNumBlockVertical - 1 < yIndex) {
+		return MapChipType::kBlank;
+	}
+	return mapChipData_.data[yIndex][xIndex];
+}
+
+Vector3 MapchipField::GetBlockPositionByIndex(uint32_t xIndex, uint32_t yIndex) { 
+	return Vector3(kBlockWidth*xIndex,kBlockHeight*(kNumBlockVertical-1-yIndex),0); 
 }
