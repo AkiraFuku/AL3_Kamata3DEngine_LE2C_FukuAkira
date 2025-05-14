@@ -46,5 +46,7 @@ public:
 	void Update();
 	// 描画
 	void Draw();
+	//
+	void GenerateBlock();
 
 };

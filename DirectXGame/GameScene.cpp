@@ -4,6 +4,7 @@ using namespace KamataEngine;
 
 //GameScene::GameScene() {}
 //
+
 GameScene::~GameScene() { 
 	delete player_;
 	delete model_;
@@ -26,6 +27,33 @@ GameScene::~GameScene() {
 	// マップチップフィールドの解放
 	delete mapchipField_;
 }
+// ゲームシーンのブロック生成
+void GameScene::GenerateBlock() {
+	///ブロック要素数
+	uint32_t numBlockVertical = mapchipField_->GetNumBlockVertical();
+	uint32_t numBlockHorizontal = mapchipField_->GetNumBlockHorizontal();
+	WorldTransformBlocks_.resize(numBlockVertical);
+	for (uint32_t i = 0; i < numBlockVertical; i++) {
+		WorldTransformBlocks_[i].resize(numBlockHorizontal);
+	}
+	//キューブの生成
+	for (uint32_t i = 0; i < numBlockVertical; i++) {
+		for (uint32_t j = 0; j < numBlockHorizontal; j++) {
+			if ((i+j)%2==1) {continue;}
+			
+					WorldTransformBlocks_[i][j] = new WorldTransform()	;
+					WorldTransformBlocks_[i][j]->Initialize();
+					WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
+					WorldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
+		
+					
+		
+			
+		}
+	}
+}
+
+
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
 	teXtureHandle_ = TextureManager::Load("img_thumb_08_01.png");
@@ -71,6 +99,10 @@ void GameScene::Initialize() {
 			
 		}
 	}
+
+	///
+	GenerateBlock();
+
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth,WinApp::kWindowHeight);
 	// スカイドームのモデル生成
@@ -147,3 +179,4 @@ void GameScene::Draw() {
 
 	
 }
+

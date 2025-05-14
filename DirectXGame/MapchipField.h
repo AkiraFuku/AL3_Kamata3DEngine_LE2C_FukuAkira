@@ -29,5 +29,11 @@ public:
 	void LoadMapChipCsv(const std::string& filePath);
 	MapChipType GetMapChipTypeByIndex(uint32_t xIndex,uint32_t yIndex) ;
 	Vector3 GetBlockPositionByIndex(uint32_t xIndex, uint32_t yIndex) ;
+	// ブロックの行数
+	uint32_t GetNumBlockVertical() { return kNumBlockVertical; }
+	// ブロックの列数
+	uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
+	Vector3 GetmapChipPositionIndex(uint32_t xIndex, uint32_t yIndex) { return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVertical - 1 - yIndex), 0); }
+
 };
 
