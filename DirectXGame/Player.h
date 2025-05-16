@@ -32,4 +32,6 @@ private:
 	static inline const float kAcceleration = 0.1f; ///< 移動速度
 	static inline const float kAttenution = 0.1f;   ///< 減速
 	static inline const float kLimitRunSpeed = 1.0f; ///< 最大速度
+	enum class LRDirection { kLeft, kRight,  };
+	LRDirection lrDirection_ = LRDirection::kRight; ///< キャラクターの向き
 };

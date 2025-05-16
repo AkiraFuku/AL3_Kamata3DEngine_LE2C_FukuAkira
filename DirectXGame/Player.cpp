@@ -28,12 +28,18 @@ void Player::Update() {
 				velocity_.x *= (1.0f - kAttenution);
 			}
 			acceleration.x += kAcceleration;
+			if (lrDirection_ |= LRDirection::kRight) {
+				lrDirection_ = LRDirection::kRight;
+			}
 		} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
 			// 左キーが押されている
 			if (velocity_.x > 0.0f) {
 				velocity_.x *= (1.0f - kAttenution);
 			}
 			acceleration.x -= kAcceleration;
+			if (lrDirection_ |= LRDirection::kLeft) {
+				lrDirection_ = LRDirection::kLeft;
+			}
 		}
 		velocity_ = Add(velocity_, acceleration);
 		// 最大速度
