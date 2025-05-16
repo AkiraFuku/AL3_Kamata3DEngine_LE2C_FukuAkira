@@ -27,4 +27,7 @@ private:
 	Model* model_ = nullptr;        ///< モデル
 	uint32_t textureHandle_ = 0u;    ///< テクスチャハンドル
 	Camera* camera_=nullptr;      ///< カメラ
+	Vector3 velocity_ = {}; ///< 速度
+	static inline const float kAcceleration = 0.1f; ///< 移動速度
+	static inline const float kAttenution = 0.1f;     
 };

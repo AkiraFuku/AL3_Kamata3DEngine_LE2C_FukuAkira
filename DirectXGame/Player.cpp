@@ -16,16 +16,27 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const
 }
 
 void Player::Update() {
-	// afine変換
-	/*Matrix4x4 affin_mat = MakeAfineMatrix(
-		worldTransform_.scale_,
-		worldTransform_.rotation_,
-		worldTransform_.translation_
-	);
-	worldTransform_.matWorld_ =affin_mat;*/
-	WorldTransformUpdate(&worldTransform_);
+	
+	
+	// キー入力
+	if(Input::GetInstance()->PushKey(DIK_RIGHT)||
+		Input::GetInstance()->PushKey(DIK_LEFT)){
+		Vector3 acceleration = {};
+		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+			acceleration.x += kAcceleration;
+		} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+			acceleration.x -= kAcceleration;
+		}
+		velocity_ = Add(velocity_, acceleration);
+	} else {
+		// 減速
+		velocity_ .x*=(1.0f)
+	}
 
-	//worldTransform_.TransferMatrix();
+	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
+
+	
+	WorldTransformUpdate(&worldTransform_);
 	
 
 }
