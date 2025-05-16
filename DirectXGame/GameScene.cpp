@@ -91,13 +91,14 @@ void GameScene::Update() {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
 			if (!WorldTransformBlock) {continue;}
 			//アフィン変換
-			WorldTransformBlock->matWorld_ = MakeAfineMatrix(
-			WorldTransformBlock->scale_,
-			WorldTransformBlock->rotation_,
-			WorldTransformBlock->translation_
-			);
-			// ワールド行列の転送
-			WorldTransformBlock->TransferMatrix();
+			//WorldTransformBlock->matWorld_ = MakeAfineMatrix(
+			//WorldTransformBlock->scale_,
+			//WorldTransformBlock->rotation_,
+			//WorldTransformBlock->translation_
+			//);
+			//// ワールド行列の転送
+			//WorldTransformBlock->TransferMatrix();
+			WorldTransformUpdate(WorldTransformBlock);
 
 
 

@@ -15,14 +15,15 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera) {
 
 void Player::Update() {
 	// afine変換
-	Matrix4x4 affin_mat = MakeAfineMatrix(
+	/*Matrix4x4 affin_mat = MakeAfineMatrix(
 		worldTransform_.scale_,
 		worldTransform_.rotation_,
 		worldTransform_.translation_
 	);
-	worldTransform_.matWorld_ =affin_mat;
+	worldTransform_.matWorld_ =affin_mat;*/
+	WorldTransformUpdate(&worldTransform_);
 
-	worldTransform_.TransferMatrix();
+	//worldTransform_.TransferMatrix();
 	
 
 }
