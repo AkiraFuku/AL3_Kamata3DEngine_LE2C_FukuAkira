@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include "MassFunction.h"
+#include <numbers>
 using namespace KamataEngine;
 /// <summary>
 /// 自キャラ
@@ -12,7 +13,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model,uint32_t textureHandle,Camera* camera);
+	void Initialize(Model* model,uint32_t textureHandle,Camera* camera,const Vector3 position);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -26,4 +27,7 @@ private:
 	Model* model_ = nullptr;        ///< モデル
 	uint32_t textureHandle_ = 0u;    ///< テクスチャハンドル
 	Camera* camera_=nullptr;      ///< カメラ
+	Vector3 velocity_={};// 自キャラの移動速度
+	static inline const float kAcceleration = 1.0f; ///< 自キャラの移動速度
+
 };

@@ -13,7 +13,7 @@ static const int kRowHeight = 20;
 
 //void MatrixScreenPrintf(int x, int y,const Matrix4x4& m, const char* label);
 //void VectorScreenPrintf( int x, int y,Vector3& vector, const char* label);
-Matrix4x4 MakeAfin_Mat(WorldTransform worldTransform);
+void WorldTransformUpdate(WorldTransform* worldTransform);
 
 Matrix4x4 MakeAfineMatrix(const Vector3& scale,const Vector3& rotate,const Vector3& traslate);
 Matrix4x4 MakeTranslateMatrix(const Vector3& traslate);

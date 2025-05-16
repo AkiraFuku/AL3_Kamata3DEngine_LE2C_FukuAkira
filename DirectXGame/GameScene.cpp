@@ -32,8 +32,6 @@ void GameScene::GenerateBlock() {
 	///ブロック要素数
 	uint32_t numBlockVertical = mapchipField_->GetNumBlockVertical();
 	uint32_t numBlockHorizontal = mapchipField_->GetNumBlockHorizontal();
-
-	//ブロック1個横幅
 	
 	worldTransformBlocks_.resize(numBlockVertical);
 	for (uint32_t i = 0; i < numBlockVertical; i++) {
@@ -64,7 +62,9 @@ void GameScene::Initialize() {
 	camera_.Initialize();
 	//自キャラ生成
 	player_ = new Player();
-	player_->Initialize(model_,teXtureHandle_,&camera_);
+	// 自キャラの初期化
+	Vector3 playerPostion = mapchipField_->GetmapChipPositionIndex(0, 0);
+	player_->Initialize(model_,teXtureHandle_,&camera_,playerPostion );
 	//	//ブロックモデル生成
 	blockM_ = Model::CreateFromOBJ("block",true);
 	
@@ -91,13 +91,9 @@ void GameScene::Update() {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
 			if (!WorldTransformBlock) {continue;}
 			//アフィン変換
-			WorldTransformBlock->matWorld_ = MakeAfineMatrix(
-			WorldTransformBlock->scale_,
-			WorldTransformBlock->rotation_,
-			WorldTransformBlock->translation_
-			);
+			WorldTransformUpdate(WorldTransformBlock);
 			// ワールド行列の転送
-			WorldTransformBlock->TransferMatrix();
+			
 
 
 
