@@ -64,7 +64,10 @@ void GameScene::Initialize() {
 	camera_.Initialize();
 	//自キャラ生成
 	player_ = new Player();
-	player_->Initialize(model_,teXtureHandle_,&camera_);
+
+	// 自キャラの初期化
+	Vector3 playerPosition = mapchipField_->GetBlockPositionByIndex(1, 18);
+	player_->Initialize(model_,teXtureHandle_,&camera_,playerPosition);
 	//	//ブロックモデル生成
 	blockM_ = Model::CreateFromOBJ("block",true);
 	

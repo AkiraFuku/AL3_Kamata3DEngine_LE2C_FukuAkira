@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera) { 
+void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position) { 
 	assert(model);
 	/// 引数をメンバ変数に格納
 	/// モデル
@@ -9,6 +9,8 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera) {
 	textureHandle_ = textureHandle;
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = position;
+	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 	// カメラ
 	camera_=camera;
 }
