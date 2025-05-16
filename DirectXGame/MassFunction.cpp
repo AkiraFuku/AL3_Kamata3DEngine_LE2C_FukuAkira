@@ -21,7 +21,17 @@
 		Novice::ScreenPrintf(x + kColumnWidth * 3, y, "%s", label);
 	}*/
 
-	Matrix4x4 MakeAfineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& traslate)
+	Matrix4x4 MakeAfin_Mat(WorldTransform* worldTransform) {
+		Matrix4x4 affin_mat = MakeAfineMatrix(
+		worldTransform->scale_,
+		worldTransform->rotation_,
+		worldTransform->translation_
+	);
+		
+		return affin_mat ;
+	}
+
+Matrix4x4 MakeAfineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& traslate)
 	{
 		Matrix4x4 scaleMatrix=MakeScaleMatrix(scale);
 		Matrix4x4 rotateMatrix=Multiply(MakeRotateXMatrix( rotate.x),Multiply(MakeRotateYMatrix( rotate.y),MakeRotateZMatrix( rotate.z)));
