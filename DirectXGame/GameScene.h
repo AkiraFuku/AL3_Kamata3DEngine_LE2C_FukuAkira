@@ -25,7 +25,7 @@ private:
 	KamataEngine::Camera camera_;
 	// 自キャラ
 	Player* player_=nullptr;
-	std::vector<std::vector<WorldTransform*>> WorldTransformBlocks_;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;

@@ -17,12 +17,12 @@ struct MapChipData {
 class MapchipField {
 
 	private:
-	static inline const float kBlockWidth = 2.0f; ///< ブロックの横幅
-	    static inline const float kBlockHeight = 2.0f; ///< ブロックの縦幅
+	static inline const float kBlockWidth = 1.0f; ///< ブロックの横幅
+	    static inline const float kBlockHeight =1.0f; ///< ブロックの縦幅
 	          // ブロックの行数
-	static inline const uint32_t kNumBlockVertical = 10;
+	static inline const uint32_t kNumBlockVertical = 20;
 	    // ブロックの列数
-	static inline const uint32_t kNumBlockHorizontal = 20;
+	static inline const uint32_t kNumBlockHorizontal = 100;
 	MapChipData mapChipData_; ///< マップチップデータ
 public:
 	void ResetMapChipData();

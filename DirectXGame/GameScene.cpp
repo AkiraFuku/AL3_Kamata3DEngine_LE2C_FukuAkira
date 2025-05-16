@@ -11,13 +11,13 @@ GameScene::~GameScene() {
 	///
 	delete blockM_;
 	//
-	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
+	for (std::vector<WorldTransform*>&worldTransformBlockLine:worldTransformBlocks_) {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine) {
 			delete WorldTransformBlock;
 		}
 	}
 	
-	WorldTransformBlocks_.clear();
+	worldTransformBlocks_.clear();
 	// デバッグカメラの解放
 	delete debugCamera_;
 	// スカイドームの解放
@@ -32,23 +32,22 @@ void GameScene::GenerateBlock() {
 	///ブロック要素数
 	uint32_t numBlockVertical = mapchipField_->GetNumBlockVertical();
 	uint32_t numBlockHorizontal = mapchipField_->GetNumBlockHorizontal();
-	WorldTransformBlocks_.resize(numBlockVertical);
+
+	//ブロック1個横幅
+	
+	worldTransformBlocks_.resize(numBlockVertical);
 	for (uint32_t i = 0; i < numBlockVertical; i++) {
-		WorldTransformBlocks_[i].resize(numBlockHorizontal);
+		worldTransformBlocks_[i].resize(numBlockHorizontal);
 	}
 	//キューブの生成
 	for (uint32_t i = 0; i < numBlockVertical; i++) {
 		for (uint32_t j = 0; j < numBlockHorizontal; j++) {
-			if ((i+j)%2==1) {continue;}
-			
-					WorldTransformBlocks_[i][j] = new WorldTransform()	;
-					WorldTransformBlocks_[i][j]->Initialize();
-					WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
-					WorldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
-		
-					
-		
-			
+			if (mapchipField_->GetMapChipTypeByIndex(j,i)==MapChipType::kBlock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformBlocks_[i][j]=worldTransform;
+		        worldTransformBlocks_[i][j]->translation_ = mapchipField_->GetBlockPositionByIndex(j, i);
+			}	
 		}
 	}
 }
@@ -68,38 +67,9 @@ void GameScene::Initialize() {
 	player_->Initialize(model_,teXtureHandle_,&camera_);
 	//	//ブロックモデル生成
 	blockM_ = Model::CreateFromOBJ("block",true);
-	///ブロック要素数
-	 const uint32_t kNumBlockVertical = 10;
-	const uint32_t kNumBlockHorizontal = 20;
-	//ブロック1個横幅
-	const float kBlockWidth = 2.0f;
-	const float kBlockHeight = 2.0f;
-
-	//要素数の変更
-	WorldTransformBlocks_.resize(kNumBlockVertical);
-	for (uint32_t i = 0; i < kNumBlockVertical; i++) {
-		WorldTransformBlocks_[i].resize(kNumBlockHorizontal);
-	}
-	// マップチップフィールドの生成
+	
 	mapchipField_ = new MapchipField();
 	mapchipField_->LoadMapChipCsv("Resources/blocks.csv");
-
-	//キューブの生成
-	for (uint32_t i = 0; i < kNumBlockVertical; i++) {
-		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
-			if ((i+j)%2==1) {continue;}
-			
-					WorldTransformBlocks_[i][j] = new WorldTransform()	;
-					WorldTransformBlocks_[i][j]->Initialize();
-					WorldTransformBlocks_[i][j]->translation_.x =  kBlockWidth*j;
-					WorldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
-		
-					
-		
-			
-		}
-	}
-
 	///
 	GenerateBlock();
 
@@ -117,7 +87,7 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	player_->Update();
 	///// ブロックの更新
-	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
+	for (std::vector<WorldTransform*>&worldTransformBlockLine:worldTransformBlocks_) {
 		for (WorldTransform*WorldTransformBlock:worldTransformBlockLine  ) {
 			if (!WorldTransformBlock) {continue;}
 			//アフィン変換
@@ -145,7 +115,7 @@ void GameScene::Draw() {
 	// カメラの描画
 	player_->Draw();
 	// ブロックの描画
-	for (std::vector<WorldTransform*>&worldTransformBlockLine:WorldTransformBlocks_) {
+	for (std::vector<WorldTransform*>&worldTransformBlockLine:worldTransformBlocks_) {
 
 		for (WorldTransform* WorldTransformBlock :worldTransformBlockLine ) {
 			if (!WorldTransformBlock) {continue;}
