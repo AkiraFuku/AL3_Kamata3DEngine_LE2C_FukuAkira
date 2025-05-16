@@ -9,8 +9,8 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const
 	textureHandle_ = textureHandle;
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = position;
-	worldTransform_.rotation_.y = std::numbers::pi_v<float>/2.0f;
+//	worldTransform_.translation_ = position;
+//	worldTransform_.rotation_.y = std::numbers::pi_v<float>/2.0f;
 	// カメラ
 	camera_=camera;
 
@@ -20,7 +20,7 @@ void Player::Update() {
 	// afine変換
 
 	// 移動
-	if (Input::GetInstance()->PushKey(DIK_RIGHT)||
+	/*if (Input::GetInstance()->PushKey(DIK_RIGHT)||
 		Input::GetInstance()->PushKey(DIK_LEFT)) {
 		Vector3 acceleration = {};
 		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
@@ -30,12 +30,12 @@ void Player::Update() {
 		}
 		velocity_ = Add(velocity_, acceleration);
 		
-	}
+	}*/
 
 
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
 	
-	WorldTransformUpdate(&worldTransform_);
+	//WorldTransformUpdate(&worldTransform_);
 
 	
 	

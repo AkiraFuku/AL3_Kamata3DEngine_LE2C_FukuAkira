@@ -63,8 +63,8 @@ void GameScene::Initialize() {
 	//自キャラ生成
 	player_ = new Player();
 	// 自キャラの初期化
-	Vector3 playerPostion = mapchipField_->GetmapChipPositionIndex(0, 0);
-	player_->Initialize(model_,teXtureHandle_,&camera_,playerPostion );
+	//Vector3 playerPostion = mapchipField_->GetmapChipPositionIndex(1, 1);
+	//player_->Initialize(model_,teXtureHandle_,&camera_,playerPostion );
 	//	//ブロックモデル生成
 	blockM_ = Model::CreateFromOBJ("block",true);
 	
@@ -109,7 +109,7 @@ void GameScene::Draw() {
 
 	Model::PreDraw(dxCommon->GetCommandList() );
 	// カメラの描画
-	player_->Draw();
+	//player_->Draw();
 	// ブロックの描画
 	for (std::vector<WorldTransform*>&worldTransformBlockLine:worldTransformBlocks_) {
 

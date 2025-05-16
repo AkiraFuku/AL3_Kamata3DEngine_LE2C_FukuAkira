@@ -26,7 +26,7 @@
 		worldTransform->scale_,
 		worldTransform->rotation_,
 		worldTransform->translation_
-	);
+		);
 		
 		worldTransform->TransferMatrix();
 	}
