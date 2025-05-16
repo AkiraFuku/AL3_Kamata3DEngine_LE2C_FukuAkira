@@ -30,7 +30,7 @@ void Player::Update() {
 		velocity_ = Add(velocity_, acceleration);
 	} else {
 		// 減速
-		velocity_ .x*=(1.0f)
+		velocity_ .x*=(1.0f-kAcceleration);
 	}
 
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
