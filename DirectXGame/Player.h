@@ -2,6 +2,7 @@
 #include "KamataEngine.h"
 #include "MassFunction.h"
 #include <numbers>
+#include <algorithm>
 using namespace KamataEngine;
 /// <summary>
 /// 自キャラ
@@ -29,5 +30,6 @@ private:
 	Camera* camera_=nullptr;      ///< カメラ
 	Vector3 velocity_ = {}; ///< 速度
 	static inline const float kAcceleration = 0.1f; ///< 移動速度
-	static inline const float kAttenution = 0.1f;     
+	static inline const float kAttenution = 0.1f;   ///< 減速
+	static inline const float kLimitRunSpeed = 1.0f; ///< 最大速度
 };

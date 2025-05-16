@@ -23,11 +23,21 @@ void Player::Update() {
 		Input::GetInstance()->PushKey(DIK_LEFT)){
 		Vector3 acceleration = {};
 		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+			// 右キーが押されている
+			if (velocity_.x<0.0f) {
+				velocity_.x *= (1.0f - kAttenution);
+			}
 			acceleration.x += kAcceleration;
 		} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+			// 左キーが押されている
+			if (velocity_.x > 0.0f) {
+				velocity_.x *= (1.0f - kAttenution);
+			}
 			acceleration.x -= kAcceleration;
 		}
 		velocity_ = Add(velocity_, acceleration);
+		// 最大速度
+		velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
 	} else {
 		// 減速
 		velocity_ .x*=(1.0f-kAcceleration);
