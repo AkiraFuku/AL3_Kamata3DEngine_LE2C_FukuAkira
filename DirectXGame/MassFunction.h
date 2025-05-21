@@ -30,7 +30,8 @@ Matrix4x4 MakeRotateXMatrix( float radian);
 Matrix4x4 MakeRotateYMatrix( float radian);
 Matrix4x4 MakeRotateZMatrix( float radian);
 
-
+float EaseIn(float t);
+float EaseOut(float t);
 
 	/// <summary>
 	/// matrix4x4

@@ -9,6 +9,9 @@ using namespace KamataEngine;
 /// </summary>
 class Player {
 public:
+
+	enum class LRDirection { kRight, kLeft,  };
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -32,6 +35,13 @@ private:
 	static inline const float kAcceleration = 0.1f; ///< 移動速度
 	static inline const float kAttenution = 0.1f;   ///< 減速
 	static inline const float kLimitRunSpeed = 1.0f; ///< 最大速度
-	enum class LRDirection { kLeft, kRight,  };
 	LRDirection lrDirection_ = LRDirection::kRight; ///< キャラクターの向き
+	// 旋回開始時角度
+	float turnFirstRotationY_ = 0.0f;
+	//旋回タイマー
+	float turnTimer_ = 0.0f;
+	// 旋回時間<秒>
+	static inline const float kTimeTurn =0.3f;
+
+
 };

@@ -26,9 +26,14 @@ void Player::Update() {
 			// 右キーが押されている
 			if (velocity_.x<0.0f) {
 				velocity_.x *= (1.0f - kAttenution);
+				// 旋回時の角度
+				turnFirstRotationY_ = worldTransform_.rotation_.y;
+				// 旋回タイマー初期化
+				turnTimer_ = kTimeTurn;
+
 			}
 			acceleration.x += kAcceleration;
-			if (lrDirection_ |= LRDirection::kRight) {
+			if (lrDirection_ != LRDirection::kRight) {
 				lrDirection_ = LRDirection::kRight;
 			}
 		} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
@@ -37,8 +42,12 @@ void Player::Update() {
 				velocity_.x *= (1.0f - kAttenution);
 			}
 			acceleration.x -= kAcceleration;
-			if (lrDirection_ |= LRDirection::kLeft) {
+			if (lrDirection_ != LRDirection::kLeft) {
 				lrDirection_ = LRDirection::kLeft;
+				// 旋回時の角度
+				turnFirstRotationY_ = worldTransform_.rotation_.y;
+				// 旋回タイマー初期化
+				turnTimer_ = kTimeTurn;
 			}
 		}
 		velocity_ = Add(velocity_, acceleration);
@@ -48,12 +57,31 @@ void Player::Update() {
 		// 減速
 		velocity_ .x*=(1.0f-kAcceleration);
 	}
-
+	
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
+	
+	if (turnTimer_>0.0f) {
+		// 旋回時間を減少
+		turnTimer_ -= 1.0f / 60.0f;
+		// 旋回角度
+
+
+
+		float destinationRotationYTable[]={
+	    std::numbers::pi_v<float>/2.0f,
+	    std::numbers::pi_v<float>*3.0f/2.0f
+		} ;
+
+	float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
+
+	worldTransform_.rotation_.y = ;
+	} 
+	
+
+	
 
 	
 	WorldTransformUpdate(&worldTransform_);
-	
 
 }
 

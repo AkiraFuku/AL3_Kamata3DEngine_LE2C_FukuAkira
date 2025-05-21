@@ -1,25 +1,12 @@
 #include "MassFunction.h"
-//
-// 
-// 
-// 
-// 
-//void MatrixScreenPrintf(int x, int y, const Matrix4x4& m, const char* label)
-//{
-//	Novice::ScreenPrintf(x, y, "%s", label);
-//	for (int i = 0; i < 4; i++){
-//		for (int j = 0; j < 4; j++){
-//
-//			Novice::ScreenPrintf(x + kColumnWidth * (j), y + kRowHeight * (i+1), "%6.02f", m.m[i][j]);
-//		}
-//	}
-//}
-	/*void VectorScreenPrintf(int x, int y, Vector3& vector, const char* label){
-		Novice::ScreenPrintf(x, y, "%.02f", vector.x);
-		Novice::ScreenPrintf(x + kColumnWidth, y, "%.02f", vector.y);
-		Novice::ScreenPrintf(x + kColumnWidth * 2, y, "%.02f", vector.z);
-		Novice::ScreenPrintf(x + kColumnWidth * 3, y, "%s", label);
-	}*/
+float EaseIn(float t) {
+	float easedT = t * t*t*t*t;
+		return easedT; 
+};
+float EaseOut(float t) {
+	float easedT = 1.0f-powf(1.0f-t,5.0f);
+	return easedT;
+};
 
 	void WorldTransformUpdate(WorldTransform* worldTransform) {
 		Matrix4x4 affin_mat = MakeAfineMatrix(
@@ -38,7 +25,7 @@ Matrix4x4 MakeAfineMatrix(const Vector3& scale, const Vector3& rotate, const Vec
 		Matrix4x4 rotateMatrix=Multiply(MakeRotateXMatrix( rotate.x),Multiply(MakeRotateYMatrix( rotate.y),MakeRotateZMatrix( rotate.z)));
 		Matrix4x4 traslateMatrix=MakeTranslateMatrix(traslate);
 
-		Matrix4x4 result=Multiply(scaleMatrix,Multiply(rotateMatrix,traslateMatrix));
+		Matrix4x4 result=Multiply(Multiply(scaleMatrix,rotateMatrix),traslateMatrix);
 
 		return result ;
 	}
