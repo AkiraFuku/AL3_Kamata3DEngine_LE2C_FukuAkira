@@ -5,6 +5,7 @@
 #include "MassFunction.h"
 #include "Skydome.h"
 #include "MapchipField.h"
+#include "CameraController.h"
 
 using namespace KamataEngine ;
 
@@ -35,6 +36,10 @@ private:
 	Model* modelSkydome_ = nullptr;
 	// mapchipField
 	 MapchipField* mapchipField_ ;
+	// カメラクラス
+	 CameraController* cameraControlle_;
+	
+
 
 public:
 	
