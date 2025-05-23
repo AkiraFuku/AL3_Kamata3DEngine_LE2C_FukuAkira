@@ -17,48 +17,66 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const
 
 void Player::Update() {
 	
+	if (onGround_) {
 	
 	// キー入力
-	if(Input::GetInstance()->PushKey(DIK_RIGHT)||
-		Input::GetInstance()->PushKey(DIK_LEFT)){
-		Vector3 acceleration = {};
-		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-			// 右キーが押されている
-			if (velocity_.x<0.0f) {
-				velocity_.x *= (1.0f - kAttenution);
-				// 旋回時の角度
-				turnFirstRotationY_ = worldTransform_.rotation_.y;
-				// 旋回タイマー初期化
-				turnTimer_ = kTimeTurn;
+		if(Input::GetInstance()->PushKey(DIK_RIGHT)||
+			Input::GetInstance()->PushKey(DIK_LEFT)){
+			Vector3 acceleration = {};
+			if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+				// 右キーが押されている
+				if (velocity_.x<0.0f) {
+					velocity_.x *= (1.0f - kAttenution);
+					// 旋回時の角度
+					turnFirstRotationY_ = worldTransform_.rotation_.y;
+					// 旋回タイマー初期化
+					turnTimer_ = kTimeTurn;
 
+				}
+				acceleration.x += kAcceleration;
+				if (lrDirection_ != LRDirection::kRight) {
+					lrDirection_ = LRDirection::kRight;
+				}
+			} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+				// 左キーが押されている
+				if (velocity_.x > 0.0f) {
+					velocity_.x *= (1.0f - kAttenution);
+				}
+				acceleration.x -= kAcceleration;
+				if (lrDirection_ != LRDirection::kLeft) {
+					lrDirection_ = LRDirection::kLeft;
+					// 旋回時の角度
+					turnFirstRotationY_ = worldTransform_.rotation_.y;
+					// 旋回タイマー初期化
+					turnTimer_ = kTimeTurn;
+				}
 			}
-			acceleration.x += kAcceleration;
-			if (lrDirection_ != LRDirection::kRight) {
-				lrDirection_ = LRDirection::kRight;
-			}
-		} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-			// 左キーが押されている
-			if (velocity_.x > 0.0f) {
-				velocity_.x *= (1.0f - kAttenution);
-			}
-			acceleration.x -= kAcceleration;
-			if (lrDirection_ != LRDirection::kLeft) {
-				lrDirection_ = LRDirection::kLeft;
-				// 旋回時の角度
-				turnFirstRotationY_ = worldTransform_.rotation_.y;
-				// 旋回タイマー初期化
-				turnTimer_ = kTimeTurn;
-			}
+			velocity_ = Add(velocity_, acceleration);
+			// 最大速度
+			velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
+		} else {
+			// 減速
+			velocity_ .x*=(1.0f-kAcceleration);
+		
 		}
-		velocity_ = Add(velocity_, acceleration);
-		// 最大速度
-		velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
 	} else {
-		// 減速
-		velocity_ .x*=(1.0f-kAcceleration);
+		//落下速度
+		velocity_=Add(velocity_, Vector3(0,-kGravityAcceleration,0));
+		//落下速度制限
+		velocity_.y=std::max(velocity_.y,-kLimitFallSpeed);
 	}
 	
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
+
+
+
+
+
+
+
+
+
+
 	// 旋回
 	if (turnTimer_>0.0f) {
 		// 旋回時間を減少
