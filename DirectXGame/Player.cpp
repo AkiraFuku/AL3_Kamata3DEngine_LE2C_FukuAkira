@@ -59,11 +59,39 @@ void Player::Update() {
 			velocity_ .x*=(1.0f-kAcceleration);
 		
 		}
+		if (Input::GetInstance()->PushKey(DIK_UP)) {
+			velocity_=Add(velocity_,Vector3(0,kJumpAcceleration/60.0f,0));
+		}
 	} else {
 		//落下速度
-		velocity_=Add(velocity_, Vector3(0,-kGravityAcceleration,0));
+		velocity_=Add(velocity_, Vector3(0,-kGravityAcceleration/60.0f,0));
 		//落下速度制限
 		velocity_.y=std::max(velocity_.y,-kLimitFallSpeed);
+	}
+	//着地フラグ
+	bool landing =false;
+	//
+	if (velocity_.y<0) {
+		if (worldTransform_.translation_.y<=1.0f) {
+			landing=true;
+		}
+	}
+	if (onGround_) {
+		if (velocity_.y>0.0f) {
+			onGround_=false;
+		}
+	} else {
+		if (landing) {
+			///めり込み排除
+			worldTransform_.translation_.y=1.0f;
+			//摩擦
+			velocity_.x *=(1.0f-kAttenution);
+			//下方向速度リセット
+			velocity_.y=0.0f;
+			onGround_=true;
+
+
+		}
 	}
 	
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);

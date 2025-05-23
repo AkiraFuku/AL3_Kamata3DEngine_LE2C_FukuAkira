@@ -34,7 +34,7 @@ Matrix4x4 MakeRotateZMatrix( float radian);
 float EaseIn(float t);
 float EaseOut(float t);
 float EaseInOut(float s,float g ,float t);
-
+//float Lerp(float x1,float x2,float t){return(1.0f-t)*x1+t*x2; }
 	/// <summary>
 	/// matrix4x4
 	/// </summary>

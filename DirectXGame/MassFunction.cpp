@@ -8,6 +8,7 @@ float EaseOut(float t) {
 	return easedT;
 }
 
+
 float EaseInOut(float s, float g, float t) {
 	float easedT = 0.0f;
 	if (t < 0.5f) {
@@ -16,6 +17,7 @@ float EaseInOut(float s, float g, float t) {
 		easedT = s + (g - s) * EaseOut((t - 0.5f) * 2.0f) / 2.0f;
 	}
 	return easedT;
+
 	
 	
 }
