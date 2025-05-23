@@ -1,8 +1,10 @@
 #pragma once
+#define NOMINMAX
 #include "KamataEngine.h"
 #include "MassFunction.h"
 #include <numbers>
 #include <algorithm>
+
 using namespace KamataEngine;
 /// <summary>
 /// 自キャラ

@@ -59,10 +59,10 @@ void Player::Update() {
 	}
 	
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
-	
+	// 旋回
 	if (turnTimer_>0.0f) {
 		// 旋回時間を減少
-		turnTimer_ -= 1.0f / 60.0f;
+		turnTimer_ =std::max(turnTimer_-(1.0f/60.0f),0.0f);
 		// 旋回角度
 
 
@@ -74,7 +74,7 @@ void Player::Update() {
 
 	float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
-	worldTransform_.rotation_.y = ;
+	worldTransform_.rotation_.y = EaseInOut( destinationRotationY, turnFirstRotationY_,turnTimer_ / kTimeTurn);
 	} 
 	
 

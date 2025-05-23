@@ -6,7 +6,20 @@ float EaseIn(float t) {
 float EaseOut(float t) {
 	float easedT = 1.0f-powf(1.0f-t,5.0f);
 	return easedT;
-};
+}
+
+float EaseInOut(float s, float g, float t) {
+	float easedT = 0.0f;
+	if (t < 0.5f) {
+		easedT = s + (g - s) * EaseIn(t * 2.0f) / 2.0f;
+	} else {
+		easedT = s + (g - s) * EaseOut((t - 0.5f) * 2.0f) / 2.0f;
+	}
+	return easedT;
+	
+	
+}
+
 
 	void WorldTransformUpdate(WorldTransform* worldTransform) {
 		Matrix4x4 affin_mat = MakeAfineMatrix(

@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include <assert.h>
+#include <numbers>
 using namespace KamataEngine;
 ///using namespace std;
 static const int kColumnWidth = 60;
@@ -32,6 +33,7 @@ Matrix4x4 MakeRotateZMatrix( float radian);
 
 float EaseIn(float t);
 float EaseOut(float t);
+float EaseInOut(float s,float g ,float t);
 
 	/// <summary>
 	/// matrix4x4
