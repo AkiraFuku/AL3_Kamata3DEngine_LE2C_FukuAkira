@@ -45,8 +45,11 @@ private:
 	// 旋回時間<秒>
 	static inline const float kTimeTurn =0.3f;
 	bool onGround_=true;
+	//重力加速度
 	static inline const float kGravityAcceleration=0.98f;
+	//落下速度制限
 	static inline const float  kLimitFallSpeed = 0.5f;
+	//跳躍加速度
 	static inline const float kJumpAcceleration=20.0f;
 
 
