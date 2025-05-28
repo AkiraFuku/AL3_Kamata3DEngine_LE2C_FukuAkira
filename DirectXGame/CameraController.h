@@ -1,5 +1,6 @@
 #pragma once
 #include <KamataEngine.h>
+#include "Player.h"
 class CameraController {
 public:
 	/// <summary>
@@ -15,4 +16,6 @@ public:
 	private:
 		// カメラ
 		KamataEngine::Camera camera_;
+		Player* target_=nullptr;
+		
 };
