@@ -89,6 +89,8 @@ void GameScene::Initialize() {
 	cameraControlle_->Initialize(&camera_);
 	cameraControlle_->SetTarget(player_);
 	cameraControlle_->Reset();
+	CameraController::Rect cameraArea(12.0f,100.0f-12.0f,6.0f,6.0f);
+	cameraControlle_->SetMoveArea(cameraArea);
 
 }
 // ゲームシーンの更新
