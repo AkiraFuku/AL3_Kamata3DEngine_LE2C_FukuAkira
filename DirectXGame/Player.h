@@ -28,6 +28,13 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	//WorldTransform GetWorldTransform() const { return worldTransform_; }
+    /// <summary>
+    /// ワールドトランスフォームの参照を取得
+    /// </summary>
+    /// <returns>ワールドトランスフォームの参照</returns>
+    const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル

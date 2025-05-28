@@ -62,6 +62,8 @@ void GameScene::Initialize() {
 	
 	
 	camera_.Initialize();
+	
+
 	//自キャラ生成
 	player_ = new Player();
 
@@ -82,8 +84,11 @@ void GameScene::Initialize() {
 	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_,&camera_);
-	
-
+	/// カメラコントローラーの生成
+	cameraControlle_ = new CameraController();
+	cameraControlle_->Initialize(&camera_);
+	cameraControlle_->SetTarget(player_);
+	cameraControlle_->Reset();
 
 }
 // ゲームシーンの更新
@@ -109,6 +114,8 @@ void GameScene::Update() {
 	}
 	// スカイドームの更新
 	skydome_->Update();
+	// カメラの更新
+	cameraControlle_->Update();
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 

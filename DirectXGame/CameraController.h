@@ -1,21 +1,29 @@
 #pragma once
 #include <KamataEngine.h>
-#include "Player.h"
+using namespace KamataEngine;
+
+class Player;
 class CameraController {
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(Camera *camera );
 
 	/// <summary>
 	/// 更新
 	/// </summary>
 	void Update();
 
+	void SetTarget(Player* target) { target_ = target; }
+
+	void Reset();
+
 	private:
 		// カメラ
-		KamataEngine::Camera camera_;
+		Camera* camera_=nullptr;
 		Player* target_=nullptr;
+
+		Vector3 targetOffset_ = {0.0f, 0.0f, -15.0f};
 		
 };
