@@ -12,6 +12,26 @@ using namespace KamataEngine;
 static const int kColumnWidth = 60;
 static const int kRowHeight = 20;
 
+//02_06のCameraControllerのUpdate/Reset関数で必要
+const Vector3 operator+(const Vector3 &lhv, const Vector3 &rhv);
+
+
+// 代入演算子オーバーロード
+Vector3& operator+=(Vector3& lhs, const Vector3& rhv);
+Vector3& operator-=(Vector3& lhs, const Vector3& rhv);
+Vector3& operator*=(Vector3& v, float s);
+Vector3& operator/=(Vector3& v, float s);
+
+//02_06のスライド24枚目のLerp関数
+Vector3 Lerp(const Vector3 &v1, const Vector3 &v2, float t);
+float Lerp(float x1, float x2, float t);
+
+
+
+
+
+
+
 //void MatrixScreenPrintf(int x, int y,const Matrix4x4& m, const char* label);
 //void VectorScreenPrintf( int x, int y,Vector3& vector, const char* label);
 void WorldTransformUpdate(WorldTransform* worldTransform);

@@ -11,8 +11,9 @@ void CameraController::Initialize(Camera *camera){
 
 void CameraController::Update(){  
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();  
-	camera_->translation_ = Add(targetWorldTransform.translation_, targetOffset_);  
-	
+	//camera_->translation_ = Add(targetWorldTransform.translation_, targetOffset_);  
+	desetination_ =targetWorldTransform.translation_+targetOffset_;
+	camera_->translation_ = Lerp(camera_->translation_, desetination_, 0.1f); // 緩やかに追従するように補間
 
 	// 修正: std::max と std::min を使用するために std:: を明示的に指定  
 	camera_->translation_.x = max(camera_->translation_.x, moveArea_.left); // x座標を0以上に制限  

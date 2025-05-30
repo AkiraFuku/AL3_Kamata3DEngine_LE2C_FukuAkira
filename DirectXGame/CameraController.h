@@ -32,5 +32,7 @@ public:
 		Player* target_=nullptr;
 	    Rect moveArea_ = {0.0f, 100.0f, 0.0f, 100.0f};
 		Vector3 targetOffset_ = {0.0f, 0.0f, -15.0f};
-		
+	    Vector3 desetination_ ;
+	    static inline const float kInterpolationRate = 0.1f; // カメラの移動速度
+
 };

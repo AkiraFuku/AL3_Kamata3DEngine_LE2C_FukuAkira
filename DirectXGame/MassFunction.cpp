@@ -1,4 +1,45 @@
 #include "MassFunction.h"
+
+
+//02_06のCameraControllerのUpdate/Reset関数で必要
+const Vector3 operator+(const Vector3 &v1, const Vector3 &v2) {
+	Vector3 temp(v1);
+	return temp += v2;
+}
+
+//02_06のスライド24枚目のLerp関数
+Vector3 Lerp(const Vector3 &v1, const Vector3 &v2, float t) {
+	return Vector3(Lerp(v1.x, v2.x, t), Lerp(v1.y, v2.y, t), Lerp(v1.z, v2.z, t));
+}
+
+Vector3& operator+=(Vector3& lhv, const Vector3& rhv) {
+	lhv.x += rhv.x;
+	lhv.y += rhv.y;
+	lhv.z += rhv.z;
+	return lhv;
+}
+
+Vector3& operator-=(Vector3& lhv, const Vector3& rhv) {
+	lhv.x -= rhv.x;
+	lhv.y -= rhv.y;
+	lhv.z -= rhv.z;
+	return lhv;
+}
+
+Vector3& operator*=(Vector3& v, float s) {
+	v.x *= s;
+	v.y *= s;
+	v.z *= s;
+	return v;
+}
+
+Vector3& operator/=(Vector3& v, float s) {
+	v.x /= s;
+	v.y /= s;
+	v.z /= s;
+	return v;
+}
+
 float EaseIn(float t) {
 	float easedT = t * t*t*t*t;
 		return easedT; 
@@ -8,15 +49,11 @@ float EaseOut(float t) {
 	return easedT;
 }
 
+float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2; }
+float EaseInOut(float x1, float x2, float t) {
+	float easedT = -(std::cosf(std::numbers::pi_v<float> *t) - 1.0f) / 2.0f;
 
-float EaseInOut(float s, float g, float t) {
-	float easedT = 0.0f;
-	if (t < 0.5f) {
-		easedT = s + (g - s) * EaseIn(t * 2.0f) / 2.0f;
-	} else {
-		easedT = s + (g - s) * EaseOut((t - 0.5f) * 2.0f) / 2.0f;
-	}
-	return easedT;
+	return Lerp(x1, x2, easedT);
 
 	
 	
