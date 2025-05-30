@@ -33,6 +33,8 @@ public:
 	    Rect moveArea_ = {0.0f, 100.0f, 0.0f, 100.0f};
 		Vector3 targetOffset_ = {0.0f, 0.0f, -15.0f};
 	    Vector3 desetination_ ;
-	    static inline const float kInterpolationRate = 0.1f; // カメラの移動速度
+	    static inline const float kInterpolationRate = 0.1f; // 
+	    static inline const float kVelocityBias = 30.0f;     // 
+
 
 };

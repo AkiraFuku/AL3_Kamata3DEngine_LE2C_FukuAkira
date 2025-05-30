@@ -22,6 +22,10 @@ Vector3& operator-=(Vector3& lhs, const Vector3& rhv);
 Vector3& operator*=(Vector3& v, float s);
 Vector3& operator/=(Vector3& v, float s);
 
+//02_06 スライド29枚目で追加
+const Vector3 operator*(const Vector3 &v1, const float f);
+
+
 //02_06のスライド24枚目のLerp関数
 Vector3 Lerp(const Vector3 &v1, const Vector3 &v2, float t);
 float Lerp(float x1, float x2, float t);

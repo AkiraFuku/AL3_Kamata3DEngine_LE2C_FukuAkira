@@ -11,8 +11,8 @@ void CameraController::Initialize(Camera *camera){
 
 void CameraController::Update(){  
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();  
-	//camera_->translation_ = Add(targetWorldTransform.translation_, targetOffset_);  
-	desetination_ =targetWorldTransform.translation_+targetOffset_;
+	
+	desetination_ =targetWorldTransform.translation_+targetOffset_+target_->getVelocity()*kVelocityBias;
 	camera_->translation_ = Lerp(camera_->translation_, desetination_, 0.1f); // 緩やかに追従するように補間
 
 	// 修正: std::max と std::min を使用するために std:: を明示的に指定  
@@ -27,4 +27,5 @@ void CameraController::Reset() {
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();  
 	// 必要に応じて targetWorldTransform を使用して処理を追加  
 	camera_->translation_ = Add(targetWorldTransform.translation_, targetOffset_);  
+	
 }

@@ -39,6 +39,11 @@ Vector3& operator/=(Vector3& v, float s) {
 	v.z /= s;
 	return v;
 }
+//02_06の29枚目(CameraControllerのUpdate)で必要
+const Vector3 operator*(const Vector3 &v1, const float f) {
+	Vector3 temp(v1);
+	return temp *= f;
+}
 
 float EaseIn(float t) {
 	float easedT = t * t*t*t*t;
