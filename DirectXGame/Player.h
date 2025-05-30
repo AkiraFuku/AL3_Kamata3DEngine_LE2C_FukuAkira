@@ -36,7 +36,7 @@ public:
     /// <returns>ワールドトランスフォームの参照</returns>
     const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& getVelocity() const { return velocity_; }
-
+	
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル

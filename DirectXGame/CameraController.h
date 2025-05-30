@@ -35,6 +35,7 @@ public:
 	    Vector3 desetination_ ;
 	    static inline const float kInterpolationRate = 0.1f; // 
 	    static inline const float kVelocityBias = 30.0f;     // 
+		static inline const Rect targetMargin_ = {-9.0f, 9.0f, -5.0f, 5.0f}; // ターゲットのマージン
 
 
 };
