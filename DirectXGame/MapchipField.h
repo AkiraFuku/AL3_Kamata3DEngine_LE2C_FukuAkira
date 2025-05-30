@@ -14,7 +14,7 @@ struct MapChipData {
 	                       
 };
 
-class MapchipField {
+class MapChipField {
 
 	private:
 	static inline const float kBlockWidth = 1.0f; ///< ブロックの横幅

@@ -11,7 +11,7 @@ namespace{
     };
 }
 
-void MapchipField::ResetMapChipData() {
+void MapChipField::ResetMapChipData() {
     mapChipData_.data.clear();
 	mapChipData_.data.resize(kNumBlockVertical);
 	for (std::vector<MapChipType>& mapChipDataLine:mapChipData_.data) {
@@ -19,7 +19,7 @@ void MapchipField::ResetMapChipData() {
 	}
 }
 
-void MapchipField::LoadMapChipCsv(const std::string& filePath) {
+void MapChipField::LoadMapChipCsv(const std::string& filePath) {
     ResetMapChipData();
     //
 	std::ifstream file;
@@ -45,7 +45,7 @@ void MapchipField::LoadMapChipCsv(const std::string& filePath) {
 	}
 }
 
-MapChipType MapchipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) { 
+MapChipType MapChipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) { 
 	if (xIndex<0||kNumBlockHorizontal-1<xIndex) {
 		return MapChipType::kBlank;
 	}
@@ -55,6 +55,6 @@ MapChipType MapchipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex
 	return mapChipData_.data[yIndex][xIndex];
 }
 
-Vector3 MapchipField::GetBlockPositionByIndex(uint32_t xIndex, uint32_t yIndex) { 
+Vector3 MapChipField::GetBlockPositionByIndex(uint32_t xIndex, uint32_t yIndex) { 
 	return Vector3(kBlockWidth*xIndex,kBlockHeight*(kNumBlockVertical-1-yIndex),0); 
 }

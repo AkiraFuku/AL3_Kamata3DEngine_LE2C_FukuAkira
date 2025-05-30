@@ -6,6 +6,7 @@
 #include <algorithm>
 
 using namespace KamataEngine;
+class MapChipField;
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -37,6 +38,8 @@ public:
     const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& getVelocity() const { return velocity_; }
 	
+	void SetMapchipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル
@@ -60,6 +63,6 @@ private:
 	static inline const float  kLimitFallSpeed = 0.5f;
 	//跳躍加速度
 	static inline const float kJumpAcceleration=20.0f;
-
+	MapChipField* mapChipField_ = nullptr; ///< マップチップフィールドへのポインタ
 
 };

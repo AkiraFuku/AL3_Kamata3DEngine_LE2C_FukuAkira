@@ -62,7 +62,9 @@ void GameScene::Initialize() {
 	
 	
 	camera_.Initialize();
-	
+		
+	mapchipField_ = new MapChipField();
+	mapchipField_->LoadMapChipCsv("Resources/blocks.csv");
 
 	//自キャラ生成
 	player_ = new Player();
@@ -70,11 +72,11 @@ void GameScene::Initialize() {
 	// 自キャラの初期化
 	Vector3 playerPosition = mapchipField_->GetBlockPositionByIndex(1, 18);
 	player_->Initialize(model_,teXtureHandle_,&camera_,playerPosition);
+	player_->SetMapchipField(mapchipField_);
+    // 修正: player_->SetMapchipField(mapchipField_); に変更  
 	//	//ブロックモデル生成
 	blockM_ = Model::CreateFromOBJ("block",true);
-	
-	mapchipField_ = new MapchipField();
-	mapchipField_->LoadMapChipCsv("Resources/blocks.csv");
+
 	///
 	GenerateBlock();
 
