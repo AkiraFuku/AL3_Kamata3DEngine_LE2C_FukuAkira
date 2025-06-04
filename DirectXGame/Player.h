@@ -15,6 +15,12 @@ public:
 
 	enum class LRDirection { kRight, kLeft,  };
 
+struct CollisionMapInfo {
+		bool isCeiling = false; ///< 天井に衝突しているか
+		bool isFloor = false;   ///< 床に衝突しているか
+		bool isWall = false;    ///< 壁に衝突しているか
+		Vector3 moveParameter = {}; ///< 移動パラメータ
+	};
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -39,6 +45,8 @@ public:
 	const Vector3& getVelocity() const { return velocity_; }
 	
 	void SetMapchipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+	void MapCollisionCheck(CollisionMapInfo& collisionMapInfo);
+	void inputMove();
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
@@ -64,5 +72,7 @@ private:
 	//跳躍加速度
 	static inline const float kJumpAcceleration=20.0f;
 	MapChipField* mapChipField_ = nullptr; ///< マップチップフィールドへのポインタ
-
+	static inline const float kWidth = 0.8f; ///< キャラクターの幅
+	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
+	
 };
