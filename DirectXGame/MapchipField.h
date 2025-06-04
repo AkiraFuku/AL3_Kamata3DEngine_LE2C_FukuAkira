@@ -25,6 +25,16 @@ class MapChipField {
 	static inline const uint32_t kNumBlockHorizontal = 100;
 	MapChipData mapChipData_; ///< マップチップデータ
 public:
+	struct IndexSet {
+		uint32_t xIndex; ///< Xインデックス
+		uint32_t yIndex; ///< Yインデックス
+	};
+	struct Rect {
+		float left; ///< 左端
+		float right; ///< 右端
+		float top;   ///< 上端
+		float bottom; ///< 下端
+	};
 	void ResetMapChipData();
 	void LoadMapChipCsv(const std::string& filePath);
 	MapChipType GetMapChipTypeByIndex(uint32_t xIndex,uint32_t yIndex) ;
@@ -34,7 +44,7 @@ public:
 	// ブロックの列数
 	uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 	Vector3 GetmapChipPositionIndex(uint32_t xIndex, uint32_t yIndex) { return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVertical - 1 - yIndex), 0); }
-
+	IndexSet GetMapChipIndexSetByPosition(const Vector3& Position);
 
 };
 
