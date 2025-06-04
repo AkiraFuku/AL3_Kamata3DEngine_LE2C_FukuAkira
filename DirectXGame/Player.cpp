@@ -164,3 +164,25 @@ void Player::inputMove() {
 		velocity_.y=std::max(velocity_.y,-kLimitFallSpeed);
 	}
 }
+
+Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
+	/*if (corner==kRightBottom) {
+		return center +Vector3 {+kWidth / 2.0f, -kHeight / 2.0f,0.0f};
+	} else if (corner == kLeftBottom) {
+		return center + Vector3 {-kWidth / 2.0f, -kHeight / 2.0f,0.0f};
+	} else if (corner == kRightTop) {
+		return center + Vector3 {+kWidth / 2.0f, +kHeight / 2.0f,0.0f};
+	} else  {
+		return center + Vector3{-kWidth / 2.0f, +kHeight / 2.0f, 0.0f};
+	}*/
+	Vector3 OffsetTable[kNumCorner]={
+	
+		Vector3{+kWidth / 2.0f, -kHeight / 2.0f,0.0f}, // kRightBottom
+		Vector3{-kWidth / 2.0f, -kHeight / 2.0f,0.0f}, // kLeftBottom
+		Vector3{+kWidth / 2.0f, +kHeight / 2.0f,0.0f}, // kRightTop
+		Vector3{-kWidth / 2.0f, +kHeight / 2.0f,0.0f} // kLeftTop
+	};
+	return center + OffsetTable[static_cast<uint32_t>(corner)];
+	
+
+}

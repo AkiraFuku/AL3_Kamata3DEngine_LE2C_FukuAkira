@@ -21,6 +21,14 @@ struct CollisionMapInfo {
 		bool isWall = false;    ///< 壁に衝突しているか
 		Vector3 move; ///< 移動パラメータ
 	};
+enum Corner {
+		kRightBottom, ///< 右下
+		kLeftBottom,  ///< 左下
+		kRightTop,    ///< 右上
+		kLeftTop,     ///< 左上
+		kNumCorner   ///< コーナーの数
+	
+};
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -36,7 +44,7 @@ struct CollisionMapInfo {
 	/// </summary>
 	void Draw();
 
-	//WorldTransform GetWorldTransform() const { return worldTransform_; }
+	
     /// <summary>
     /// ワールドトランスフォームの参照を取得
     /// </summary>
@@ -51,6 +59,7 @@ struct CollisionMapInfo {
 	void CheckMapCollisionRight(CollisionMapInfo &info);
 	void CheckMapCollisionLeft(CollisionMapInfo &info);
 	void inputMove();
+	Vector3 CornerPosition(const Vector3& center,Corner corner);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
