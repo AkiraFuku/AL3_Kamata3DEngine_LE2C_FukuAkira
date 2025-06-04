@@ -35,5 +35,6 @@ public:
 	uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 	Vector3 GetmapChipPositionIndex(uint32_t xIndex, uint32_t yIndex) { return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVertical - 1 - yIndex), 0); }
 
+
 };
 

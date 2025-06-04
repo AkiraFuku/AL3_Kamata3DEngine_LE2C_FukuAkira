@@ -100,7 +100,16 @@ void Player::MapCollisionCheck(CollisionMapInfo& collisionMapInfo) {
 
 }
 
-void Player::CheckMapCollisionUp(CollisionMapInfo& info) {info;}
+void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
+	if (info.move.y<=0) {
+		return;
+	}
+	std::array<Vector3,kNumCorner> PositionNew;
+	for (uint32_t i = 0; i < PositionNew.size(); i++) {
+		PositionNew[i] = CornerPosition(worldTransform_.translation_+info.move, static_cast<Corner>(i));
+	}
+
+}
 
 void Player::CheckMapCollisionDown(CollisionMapInfo& info) {info;}
 
@@ -166,15 +175,6 @@ void Player::inputMove() {
 }
 
 Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
-	/*if (corner==kRightBottom) {
-		return center +Vector3 {+kWidth / 2.0f, -kHeight / 2.0f,0.0f};
-	} else if (corner == kLeftBottom) {
-		return center + Vector3 {-kWidth / 2.0f, -kHeight / 2.0f,0.0f};
-	} else if (corner == kRightTop) {
-		return center + Vector3 {+kWidth / 2.0f, +kHeight / 2.0f,0.0f};
-	} else  {
-		return center + Vector3{-kWidth / 2.0f, +kHeight / 2.0f, 0.0f};
-	}*/
 	Vector3 OffsetTable[kNumCorner]={
 	
 		Vector3{+kWidth / 2.0f, -kHeight / 2.0f,0.0f}, // kRightBottom
