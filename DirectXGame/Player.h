@@ -19,7 +19,7 @@ struct CollisionMapInfo {
 		bool isCeiling = false; ///< 天井に衝突しているか
 		bool isFloor = false;   ///< 床に衝突しているか
 		bool isWall = false;    ///< 壁に衝突しているか
-		Vector3 moveParameter = {}; ///< 移動パラメータ
+		Vector3 move; ///< 移動パラメータ
 	};
 	/// <summary>
 	/// 初期化
@@ -46,6 +46,10 @@ struct CollisionMapInfo {
 	
 	void SetMapchipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 	void MapCollisionCheck(CollisionMapInfo& collisionMapInfo);
+	void CheckMapCollisionUp(CollisionMapInfo &info);
+	void CheckMapCollisionDown(CollisionMapInfo &info);
+	void CheckMapCollisionRight(CollisionMapInfo &info);
+	void CheckMapCollisionLeft(CollisionMapInfo &info);
 	void inputMove();
 
 private:

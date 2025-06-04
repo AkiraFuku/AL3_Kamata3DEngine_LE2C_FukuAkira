@@ -17,60 +17,13 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const
 
 void Player::Update() {
 	
-	if (onGround_) {
 	
-	// キー入力
-		if(Input::GetInstance()->PushKey(DIK_RIGHT)||
-			Input::GetInstance()->PushKey(DIK_LEFT)){
-			Vector3 acceleration = {};
-			if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-				// 右キーが押されている
-				if (velocity_.x<0.0f) {
-					velocity_.x *= (1.0f - kAttenution);
-					// 旋回時の角度
-					turnFirstRotationY_ = worldTransform_.rotation_.y;
-					// 旋回タイマー初期化
-					turnTimer_ = kTimeTurn;
+	// 入力処理
+	inputMove();
 
-				}
-				acceleration.x += kAcceleration;
-				if (lrDirection_ != LRDirection::kRight) {
-					lrDirection_ = LRDirection::kRight;
-				}
-			} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-				// 左キーが押されている
-				if (velocity_.x > 0.0f) {
-					velocity_.x *= (1.0f - kAttenution);
-				}
-				acceleration.x -= kAcceleration;
-				if (lrDirection_ != LRDirection::kLeft) {
-					lrDirection_ = LRDirection::kLeft;
-					// 旋回時の角度
-					turnFirstRotationY_ = worldTransform_.rotation_.y;
-					// 旋回タイマー初期化
-					turnTimer_ = kTimeTurn;
-				}
-			}
-			velocity_ = Add(velocity_, acceleration);
-			// 最大速度
-			velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
-		} else {
-			// 減速
-			velocity_ .x*=(1.0f-kAcceleration);
-		
-		}
-		if (Input::GetInstance()->PushKey(DIK_UP)) {
-			velocity_=Add(velocity_,Vector3(0,kJumpAcceleration/60.0f,0));
-		}
-	} else {
-		//落下速度
-		velocity_=Add(velocity_, Vector3(0,-kGravityAcceleration/60.0f,0));
-		//落下速度制限
-		velocity_.y=std::max(velocity_.y,-kLimitFallSpeed);
-	}
 	// 衝突判定
 	CollisionMapInfo collisionMapInfo;
-	collisionMapInfo.moveParameter = velocity_;
+	collisionMapInfo.move = velocity_;
 	MapCollisionCheck(collisionMapInfo);
 
 	//着地フラグ
@@ -140,9 +93,20 @@ void Player::Draw() {
 	model_->Draw(worldTransform_, *camera_); }
 
 void Player::MapCollisionCheck(CollisionMapInfo& collisionMapInfo) {
-
+	CheckMapCollisionUp(collisionMapInfo);
+	CheckMapCollisionDown(collisionMapInfo);
+	CheckMapCollisionRight(collisionMapInfo);
+	CheckMapCollisionLeft(collisionMapInfo);
 
 }
+
+void Player::CheckMapCollisionUp(CollisionMapInfo& info) {info;}
+
+void Player::CheckMapCollisionDown(CollisionMapInfo& info) {info;}
+
+void Player::CheckMapCollisionRight(CollisionMapInfo& info) {info;}
+
+void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {info;}
 
 void Player::inputMove() {
 	if (onGround_) {

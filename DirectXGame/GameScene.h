@@ -35,7 +35,7 @@ private:
 	// スカイドームのモデル
 	Model* modelSkydome_ = nullptr;
 	// mapchipField
-	 MapchipField* mapchipField_ ;
+	 MapChipField* mapchipField_ ;
 	// カメラクラス
 	 CameraController* cameraControlle_;
 	
