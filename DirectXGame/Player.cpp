@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "MapchipField.h"
 
 void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position) { 
 	assert(model);
@@ -108,6 +109,23 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	for (uint32_t i = 0; i < PositionNew.size(); i++) {
 		PositionNew[i] = CornerPosition(worldTransform_.translation_+info.move, static_cast<Corner>(i));
 	}
+	MapChipType mapChipType;
+	//真上の当たり判定
+	bool hit=false;
+	// 左上の当たり判定
+	 MapChipField::IndexSet indexSet;
+	 indexSet=mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kLeftTop]);
+	 mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex,indexSet.yIndex);
+	 if (mapChipType==MapChipType::kBlock) {
+		 hit = true;
+	 }
+	 // 右上の当たり判定
+	 indexSet=mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kRightTop]);
+	  mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex,indexSet.yIndex);
+	 if (mapChipType==MapChipType::kBlock) {
+		 hit = true;
+	 }
+
 
 }
 
