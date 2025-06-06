@@ -289,6 +289,11 @@ void Player::UpdatOnGround(const CollisionMapInfo& info) {
 			// y方向の速度をリセット
 			velocity_.y = 0.0f;
 		}
+		if (velocity_.y>0.0f) {
+			// 上昇中の場合
+			onGround_ = false;
+		} else {
+		}
 
 	} else {
 		// 着地していない場合
