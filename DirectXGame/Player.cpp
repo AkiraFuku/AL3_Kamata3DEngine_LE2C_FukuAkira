@@ -30,6 +30,8 @@ void Player::Update() {
 
 	// 衝突判定結果をワールドトランスフォームに反映
 	ResultCollisionMapInfo(collisionMapInfo);
+	// 天井に当たった場合の処理
+	hitCeiling(collisionMapInfo);
 
 	//着地フラグ
 	bool landing =false;
