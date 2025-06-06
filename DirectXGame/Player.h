@@ -87,5 +87,5 @@ private:
 	MapChipField* mapChipField_ = nullptr; ///< マップチップフィールドへのポインタ
 	static inline const float kWidth = 0.8f; ///< キャラクターの幅
 	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
-	
+	static inline const float kBlank = 0.04f; ///< キャラクターの余白
 };

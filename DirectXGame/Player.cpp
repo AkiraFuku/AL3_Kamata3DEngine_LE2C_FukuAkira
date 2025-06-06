@@ -125,6 +125,15 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	 if (mapChipType==MapChipType::kBlock) {
 		 hit = true;
 	 }
+	 // 当たっていたら
+	 if (hit) {
+		 // めり込み排除
+		 indexSet =mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_+Vector3(0.0f,+kHeight/2.0f,0.0f));
+		 MapChipField::Rect rect = MapChipField::GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
+		 // 上方向の移動量を計算
+		 info.move.y= std::max(0.0f,rect.bottom-worldTransform_.translation_.y-(kHeight/2.0f+kBlank));
+		 info.isCeiling = true;
+	 }
 
 
 }
