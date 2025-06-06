@@ -27,6 +27,10 @@ void Player::Update() {
 	collisionMapInfo.move = velocity_;
 	MapCollisionCheck(collisionMapInfo);
 
+
+	// 衝突判定結果をワールドトランスフォームに反映
+	ResultCollisionMapInfo(collisionMapInfo);
+
 	//着地フラグ
 	bool landing =false;
 	//
@@ -217,4 +221,12 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 void Player::ResultCollisionMapInfo(const CollisionMapInfo& info) { 
 	worldTransform_.translation_ += info.move;
 
+}
+
+void Player::hitCeiling(const CollisionMapInfo& info) {
+	if (info.isCeiling) {
+		DebugText::GetInstance()->ConsolePrintf("hitCeiling\n");
+		// めり込み排除
+		velocity_.y = 0.0f;
+	}
 }
