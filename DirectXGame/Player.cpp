@@ -133,7 +133,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	 }
 	 // 当たっていたら
 	 if (hit) {
-		 // めり込み排除
+		 // めり込み排除する方向へ移動
 		 indexSet =mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_+Vector3(0.0f,+kHeight/2.0f,0.0f));
 		 MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
 		 // 上方向の移動量を計算
