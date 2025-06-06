@@ -62,6 +62,7 @@ enum Corner {
 	Vector3 CornerPosition(const Vector3& center,Corner corner);
 	void   ResultCollisionMapInfo(const CollisionMapInfo& info);
 	void hitCeiling(const CollisionMapInfo& info);
+	void UpdatOnGround(const CollisionMapInfo& info);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
@@ -90,4 +91,5 @@ private:
 	static inline const float kWidth = 0.8f; ///< キャラクターの幅
 	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
 	static inline const float kBlank = 0.04f; ///< キャラクターの余白
+	static inline const float kAttenuationLanding = 0.2f; ///< 着地時の減速
 };

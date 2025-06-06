@@ -276,3 +276,24 @@ void Player::hitCeiling(const CollisionMapInfo& info) {
 		velocity_.y = 0.0f;
 	}
 }
+
+void Player::UpdatOnGround(const CollisionMapInfo& info) {
+		
+	if (onGround_) {
+		// 着地している場合
+		if (info.isFloor) {
+			//
+			onGround_ = true;
+			// ｘ方向の速度を減衰
+			velocity_.x *= (1.0f -kAttenuationLanding );
+			// y方向の速度をリセット
+			velocity_.y = 0.0f;
+		}
+
+	} else {
+		// 着地していない場合
+	}
+}
+
+
+
