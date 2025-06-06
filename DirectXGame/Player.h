@@ -60,6 +60,7 @@ enum Corner {
 	void CheckMapCollisionLeft(CollisionMapInfo &info);
 	void inputMove();
 	Vector3 CornerPosition(const Vector3& center,Corner corner);
+	void   ResultCollisionMapInfo(const CollisionMapInfo& info);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
