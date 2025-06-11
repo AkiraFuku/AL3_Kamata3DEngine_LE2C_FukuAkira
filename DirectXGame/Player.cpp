@@ -160,7 +160,6 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	bool hit = false;
 	// 左下の当たり判定
 	MapChipField::IndexSet indexSet;
-	//indexSet = mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kLeftBottom]);
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kLeftBottom]);
 
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
@@ -168,7 +167,6 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 		hit = true;
 	}
 	// 右下の当たり判定
-	//indexSet = mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kRightBottom]);
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(PositionNew[kRightBottom]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock) {
@@ -191,7 +189,39 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 
 }
 
-void Player::CheckMapCollisionRight(CollisionMapInfo& info) {info;}
+void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
+	
+	info;
+	if (info.move.x<=0) {
+		return;
+	}
+	std::array<Vector3,kNumCorner> positionsNew;
+	for (uint32_t i = 0; i < positionsNew.size(); i++) {
+		positionsNew[i]=CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+	MapChipType mapChipType;
+	//右側の当たり判定
+	bool hit=false;
+	//右上の判定
+	MapChipField::IndexSet indexSet;
+	indexSet=mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightTop]);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	if (mapChipType== MapChipType::kBlock) {
+		hit= true;
+	}
+	//右下の判定
+	indexSet=mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	if (mapChipType== MapChipType::kBlock) {
+		hit= true;
+	}
+	//ブロックにヒット
+	if (hit) {
+
+	}
+
+
+}
 
 void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {info;}
 
