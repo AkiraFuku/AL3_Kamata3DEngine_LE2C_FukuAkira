@@ -92,4 +92,5 @@ private:
 	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
 	static inline const float kBlank = 0.04f; ///< キャラクターの余白
 	static inline const float kAttenuationLanding = 0.2f; ///< 着地時の減速
+	static inline const float kGroundSearchHeight = 0.06f;
 };

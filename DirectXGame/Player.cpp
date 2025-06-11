@@ -32,32 +32,33 @@ void Player::Update() {
 	ResultCollisionMapInfo(collisionMapInfo);
 	// 天井に当たった場合の処理
 	hitCeiling(collisionMapInfo);
+	//着地
+	UpdatOnGround(collisionMapInfo);
+	////着地フラグ
+	//bool landing =false;
+	////
+	//if (velocity_.y<0) {
+	//	if (worldTransform_.translation_.y<=1.0f) {
+	//		landing=true;
+	//	}
+	//}
+	//if (onGround_) {
+	//	if (velocity_.y>0.0f) {
+	//		onGround_=false;
+	//	}
+	//} else {
+	//	if (landing) {
+	//		///めり込み排除
+	//		worldTransform_.translation_.y=1.0f;
+	//		//摩擦
+	//		velocity_.x *=(1.0f-kAttenution);
+	//		//下方向速度リセット
+	//		velocity_.y=0.0f;
+	//		onGround_=true;
 
-	//着地フラグ
-	bool landing =false;
-	//
-	if (velocity_.y<0) {
-		if (worldTransform_.translation_.y<=1.0f) {
-			landing=true;
-		}
-	}
-	if (onGround_) {
-		if (velocity_.y>0.0f) {
-			onGround_=false;
-		}
-	} else {
-		if (landing) {
-			///めり込み排除
-			worldTransform_.translation_.y=1.0f;
-			//摩擦
-			velocity_.x *=(1.0f-kAttenution);
-			//下方向速度リセット
-			velocity_.y=0.0f;
-			onGround_=true;
 
-
-		}
-	}
+	//	}
+	//}
 	
 	worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
 
@@ -279,8 +280,47 @@ void Player::hitCeiling(const CollisionMapInfo& info) {
 
 void Player::UpdatOnGround(const CollisionMapInfo& info) {
 		
+	
 	if (onGround_) {
-		// 着地している場合
+		info;
+		if (velocity_.y>0.0f) {
+			onGround_=false;
+		} else {
+			//落下判定
+				std::array<Vector3, kNumCorner> positionsNew;
+
+			for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+				positionsNew[i] = CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+			}
+			MapChipType mapChipType;
+			//真下の当たり判定
+			bool hit= false;
+			//左下
+			MapChipField::IndexSet indexSet;
+			indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom] + Vector3(0, -kGroundSearchHeight, 0));
+			mapChipType=mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex,indexSet.yIndex);
+			if (mapChipType==MapChipType::kBlock) {
+				hit =true;
+			}
+			//右下
+			indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom] + Vector3(0, -kGroundSearchHeight, 0));
+			mapChipType=mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex,indexSet.yIndex);
+			if (mapChipType==MapChipType::kBlock) {
+				hit =true;
+			}
+			//落下開始
+			if (!hit) {
+				DebugText::GetInstance()->ConsolePrintf("jump");
+				onGround_=false;
+			}
+
+		}
+
+		
+
+	} else {
+		
+		// // 着地している場合
 		if (info.isFloor) {
 			//
 			onGround_ = true;
@@ -289,14 +329,7 @@ void Player::UpdatOnGround(const CollisionMapInfo& info) {
 			// y方向の速度をリセット
 			velocity_.y = 0.0f;
 		}
-		if (velocity_.y>0.0f) {
-			// 上昇中の場合
-			onGround_ = false;
-		} else {
-		}
-
-	} else {
-		// 着地していない場合
+		
 	}
 }
 
