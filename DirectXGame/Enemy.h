@@ -21,6 +21,8 @@ private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;    
 	Camera* camera_=nullptr;
+	static inline const float kWalkSpeed=0.02f ;
+	Vector3 velocity_={};
 	
 };
  
