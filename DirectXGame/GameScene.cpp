@@ -26,6 +26,7 @@ GameScene::~GameScene() {
 	delete modelSkydome_;
 	// マップチップフィールドの解放
 	delete mapchipField_;
+	delete enemy_;
 }
 // ゲームシーンのブロック生成
 void GameScene::GenerateBlock() {
@@ -94,6 +95,11 @@ void GameScene::Initialize() {
 	CameraController::Rect cameraArea(12.0f,100.0f-12.0f,6.0f,6.0f);
 	cameraControlle_->SetMoveArea(cameraArea);
 
+	// エネミー
+	enemy_=new Enemy();
+	enemy_model_ =Model::CreateFromOBJ("enemy");
+	Vector3 enemyPosition= mapchipField_->GetmapChipPositionIndex(14,18);
+	enemy_->Initialize(enemy_model_,&camera_,enemyPosition);
 }
 // ゲームシーンの更新
 void GameScene::Update() {
@@ -113,6 +119,8 @@ void GameScene::Update() {
 	skydome_->Update();
 	// カメラの更新
 	cameraControlle_->Update();
+	//エネミー
+	enemy_->Update();
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 
@@ -133,6 +141,9 @@ void GameScene::Draw() {
 	// スカイドームの描画
 	skydome_->Draw();
 	///
+	//エネミー
+	enemy_->Draw();
+
 	Model::PostDraw();
 
 	#ifdef _DEBUG
