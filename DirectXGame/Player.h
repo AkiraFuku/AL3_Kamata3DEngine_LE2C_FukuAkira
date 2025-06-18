@@ -63,6 +63,7 @@ enum Corner {
 	void   ResultCollisionMapInfo(const CollisionMapInfo& info);
 	void hitCeiling(const CollisionMapInfo& info);
 	void UpdatOnGround(const CollisionMapInfo& info);
+	void HitWall(const CollisionMapInfo& info);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
@@ -93,4 +94,5 @@ private:
 	static inline const float kBlank = 0.04f; ///< キャラクターの余白
 	static inline const float kAttenuationLanding = 0.2f; ///< 着地時の減速
 	static inline const float kGroundSearchHeight = 0.06f;
+	static inline const float kAttenuationWall = 0.2f;
 };
