@@ -265,18 +265,18 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	//ブロックにヒット
 	if (hit) {
 		// 現在座標が壁の外か判定
-			MapChipField::IndexSet indexSetNow;
-		indexSetNow = mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(-kWidth / 2.0f, 0, 0));
+		//	MapChipField::IndexSet indexSetNow;
+		//indexSetNow = mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(-kWidth / 2.0f, 0, 0));
 
-		if (indexSetNow.xIndex != indexSet.xIndex){
+		//if (indexSetNow.xIndex != indexSet.xIndex){
 			// めり込み排除する方向へ移動
 			indexSet= mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_+info.move+Vector3(-kWidth/2.0f,0.0f,0.0f));
 			// めり込み先のマップチップの矩形を取得
 			MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
 			// 下方向の移動量を計算
-			info.move.x= std::min(0.0f, rect.left - worldTransform_.translation_.x +(kWidth / 2.0f + kBlank));
+			info.move.x= std::min(0.0f, rect.right - worldTransform_.translation_.x +(kWidth / 2.0f + kBlank));
 			info.isWall = true;
-		}
+		//}
 	}
 
 }
