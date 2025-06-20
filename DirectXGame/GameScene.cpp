@@ -56,6 +56,31 @@ void GameScene::GenerateBlock() {
 	}
 }
 
+void GameScene::CheckAllCollisions() {
+
+#pragma region
+	//座標１,２
+	AABB aabb1,aabb2;
+	//自キャラ
+	aabb1= player_->GetAABB();
+	//敵キャラ
+	for (Enemy*enemy:enemies_) {
+		aabb2=enemy->GetAABB();
+		if (IsCollision(aabb1,aabb2)) {
+			player_->OnCollision(enemy);
+			enemy->OnCollision(player_);
+		}
+
+	}
+
+
+
+
+#pragma endregion
+
+
+}
+
 
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
@@ -119,11 +144,9 @@ void GameScene::Update() {
 			if (!WorldTransformBlock) {continue;}
 			
 			WorldTransformUpdate(WorldTransformBlock);
-
-
-
 		}
 	}
+
 	// スカイドームの更新
 	skydome_->Update();
 	// カメラの更新
@@ -131,6 +154,8 @@ void GameScene::Update() {
 	//エネミー
 	for (Enemy*enemy: enemies_){
 	enemy->Update();
+
+		 CheckAllCollisions();
 	}
 }
 // ゲームシーンの描画

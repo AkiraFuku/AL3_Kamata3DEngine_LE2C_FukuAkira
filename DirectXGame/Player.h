@@ -2,11 +2,12 @@
 #define NOMINMAX
 #include "KamataEngine.h"
 #include "MassFunction.h"
-#include <numbers>
-#include <algorithm>
 
 using namespace KamataEngine;
 class MapChipField;
+class Enemy;
+
+
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -68,6 +69,7 @@ enum Corner {
 	Vector3 GetWorldPosition();
 
 	AABB GetAABB();
+	void OnCollision(const Enemy*enemy);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム

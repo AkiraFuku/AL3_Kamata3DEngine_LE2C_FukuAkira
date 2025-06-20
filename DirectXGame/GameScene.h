@@ -2,7 +2,7 @@
 #include "KamataEngine.h"
 #include "Player.h"
 #include <vector>
-#include "MassFunction.h"
+//#include "MassFunction.h"
 #include "Skydome.h"
 #include "MapchipField.h"
 #include "CameraController.h"
@@ -57,5 +57,7 @@ public:
 	void Draw();
 	//
 	void GenerateBlock();
+	//当たり判定
+	void CheckAllCollisions();
 
 };

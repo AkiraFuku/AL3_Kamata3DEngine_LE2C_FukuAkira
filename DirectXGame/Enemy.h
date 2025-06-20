@@ -3,7 +3,10 @@
 #include "MassFunction.h"
 #include <numbers>
 #include <algorithm>
+
 using namespace KamataEngine;
+
+class Player;
 
 class Enemy {
 public:
@@ -19,6 +22,7 @@ public:
 
 	Vector3 GetWorldPosition();
 	AABB GetAABB();
+	void OnCollision(const Player* player);
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム

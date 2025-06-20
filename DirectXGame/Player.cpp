@@ -1,5 +1,9 @@
+#include <numbers>
+#include <algorithm>
 #include "Player.h"
 #include "MapchipField.h"
+#include "MassFunction.h"
+
 
 void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position) { 
 	assert(model);
@@ -35,45 +39,7 @@ void Player::Update() {
 	HitWall(collisionMapInfo);
 	//着地
 	UpdatOnGround(collisionMapInfo);
-	////着地フラグ
-	//bool landing =false;
-	////
-	//if (velocity_.y<0) {
-	//	if (worldTransform_.translation_.y<=1.0f) {
-	//		landing=true;
-	//	}
-	//}
-	//if (onGround_) {
-	//	if (velocity_.y>0.0f) {
-	//		onGround_=false;
-	//	}
-	//} else {
-	//	if (landing) {
-	//		///めり込み排除
-	//		worldTransform_.translation_.y=1.0f;
-	//		//摩擦
-	//		velocity_.x *=(1.0f-kAttenution);
-	//		//下方向速度リセット
-	//		velocity_.y=0.0f;
-	//		onGround_=true;
-
-
-	//	}
-	//}
-
 	
-	
-	//worldTransform_.translation_ =Add(worldTransform_.translation_,velocity_);
-
-
-
-
-
-
-
-
-
-
 	// 旋回
 	if (turnTimer_>0.0f) {
 		// 旋回時間を減少
@@ -447,6 +413,12 @@ AABB aabb;
 aabb.min ={worldPos.x-kWidth/2.0f,worldPos.y-kHeight/2.0f,worldPos.z-kWidth/2.0f};
 aabb.max ={worldPos.x+kWidth/2.0f,worldPos.y+kHeight/2.0f,worldPos.z+kWidth/2.0f};
 return aabb;
+}
+
+void Player::OnCollision(const Enemy* enemy) {
+(void)enemy;
+
+	velocity_+=Vector3(0.0f,kJumpAcceleration/60.0f,0.0f);
 }
 
 
