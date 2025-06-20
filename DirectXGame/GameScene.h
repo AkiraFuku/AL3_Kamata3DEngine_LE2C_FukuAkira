@@ -41,7 +41,7 @@ private:
 	 CameraController* cameraControlle_;
 
 	 //エネミー
-	 Enemy* enemy_=nullptr;
+	 std::list<Enemy*> enemies_;
 	 Model* enemy_model_=nullptr ;
 
 
