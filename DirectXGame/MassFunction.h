@@ -31,8 +31,8 @@ Vector3 Lerp(const Vector3 &v1, const Vector3 &v2, float t);
 float Lerp(float x1, float x2, float t);
 
 
-
-
+///ラジアン変換
+float Radian(float degree);
 
 
 

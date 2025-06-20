@@ -55,6 +55,12 @@ float EaseOut(float t) {
 }
 
 float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2; }
+float Radian(float degree) { 
+
+	
+return degree*(std::numbers::pi_v<float>/180.0f); 
+
+}
 float EaseInOut(float x1, float x2, float t) {
 	float easedT = -(std::cosf(std::numbers::pi_v<float> *t) - 1.0f) / 2.0f;
 
