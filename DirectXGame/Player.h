@@ -65,6 +65,10 @@ enum Corner {
 	void UpdatOnGround(const CollisionMapInfo& info);
 	void HitWall(const CollisionMapInfo& info);
 
+	Vector3 GetWorldPosition();
+
+	AABB GetAABB();
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル

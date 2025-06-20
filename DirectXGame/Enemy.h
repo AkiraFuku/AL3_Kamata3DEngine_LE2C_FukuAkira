@@ -17,6 +17,9 @@ public:
 	/// </summary>
 	void Draw();
 
+	Vector3 GetWorldPosition();
+	AABB GetAABB();
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;    
@@ -27,5 +30,8 @@ private:
 	static inline const float kWalkMotionAngleEnd=30.0f;
 	static inline const float kWalkMotionTime=1.0f;
 	float walkTimer_=0.0f;
+	static inline const float kWidth = 0.8f; ///< キャラクターの幅
+	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
+	static inline const float kBlank = 0.04f; ///< キャラクターの余白
 };
  
