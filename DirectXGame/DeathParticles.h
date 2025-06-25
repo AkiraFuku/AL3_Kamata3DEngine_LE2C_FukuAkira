@@ -1,0 +1,17 @@
+#pragma once
+#include "KamataEngine.h"
+#include <array>
+using namespace KamataEngine;
+class DeathParticles {
+public:
+	void Initialze(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position );
+	void Update();
+	void Draw();
+
+private:
+	Model*model_=nullptr;
+	Camera*camera_=nullptr;
+
+	static inline const uint32_t kNumParticles=8;
+	std::array<WorldTransform,kNumParticles> worldTransforms_;
+};
