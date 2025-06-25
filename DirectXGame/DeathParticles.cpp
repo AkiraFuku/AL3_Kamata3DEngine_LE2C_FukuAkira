@@ -1,5 +1,6 @@
 #include "DeathParticles.h"
 #include "MassFunction.h"
+#include <algorithm>
 void DeathParticles::Initialze(Model* model, Camera* camera, const Vector3& position) {
 model_=model;
 camera_=camera;
@@ -36,7 +37,8 @@ void DeathParticles::Update(){
 		//移動処理
 		worldTransforms_[i].translation_+=velocity;
 	}
-
+	color_.w=std::clamp(1.0f - countor_ / kDuration_, 0.0f, 1.0f);
+	objectColor_.SetColor(color_);
 
 
 for (WorldTransform& worldTransform:worldTransforms_) {
