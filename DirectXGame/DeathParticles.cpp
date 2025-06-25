@@ -10,6 +10,19 @@ for (WorldTransform& worldTransform:worldTransforms_) {
 
 }
 void DeathParticles::Update(){
+
+	if (isFinished_) {
+		return;
+	}
+
+	//カウンターの時間経過
+	countor_+=1.0f/60.0f;
+	//時間判定
+	if (countor_>=kDuration_) {
+		countor_=kDuration_;
+		isFinished_= true;
+	}
+
 	for (uint32_t i = 0; i < kNumParticles; ++i) {
 		///速度ベクトル
 		Vector3 velocity={kSpeed_,0.0f,0.0f};
@@ -29,6 +42,10 @@ for (WorldTransform& worldTransform:worldTransforms_) {
 }
 }
 void DeathParticles::Draw(){
+	if (isFinished_) {
+		return;
+	}
+
 	for (WorldTransform& worldTransform:worldTransforms_) {
 	model_->Draw(worldTransform,*camera_);
 	}
