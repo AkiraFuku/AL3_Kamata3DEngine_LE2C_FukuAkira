@@ -37,6 +37,7 @@ void DeathParticles::Update(){
 		//移動処理
 		worldTransforms_[i].translation_+=velocity;
 	}
+	//カラー
 	color_.w=std::clamp(1.0f - countor_ / kDuration_, 0.0f, 1.0f);
 	objectColor_.SetColor(color_);
 
@@ -53,7 +54,7 @@ void DeathParticles::Draw(){
 	}
 
 	for (WorldTransform& worldTransform:worldTransforms_) {
-	model_->Draw(worldTransform,*camera_);
+	model_->Draw(worldTransform,*camera_,&objectColor_);
 	}
 
 }
