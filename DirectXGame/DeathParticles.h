@@ -4,7 +4,7 @@
 using namespace KamataEngine;
 class DeathParticles {
 public:
-	void Initialze(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position );
+	void Initialze(Model* model,Camera* camera,const Vector3& position );
 	void Update();
 	void Draw();
 

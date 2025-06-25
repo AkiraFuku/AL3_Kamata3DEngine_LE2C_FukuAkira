@@ -30,6 +30,7 @@ GameScene::~GameScene() {
 	for (Enemy*enemy: enemies_){
 		delete enemy;
 	}
+	delete deathParticles_;
 }
 // ゲームシーンのブロック生成
 void GameScene::GenerateBlock() {
@@ -133,6 +134,10 @@ void GameScene::Initialize() {
 		newEnemy->Initialize(enemy_model_,&camera_,enemyPosition);
 		enemies_.push_back(newEnemy);
 	}
+	//デスパーティクル
+	deathParticlesModel_=Model::CreateFromOBJ("deathParticle");
+	deathParticles_=new DeathParticles;
+	deathParticles_->Initialze(deathParticlesModel_,&camera_,playerPosition);
 	
 }
 // ゲームシーンの更新
@@ -157,6 +162,11 @@ void GameScene::Update() {
 
 		 CheckAllCollisions();
 	}
+	//デスパーティクル
+	if (deathParticles_) {
+		deathParticles_->Update();
+	}
+
 }
 // ゲームシーンの描画
 void GameScene::Draw() { 
@@ -181,7 +191,10 @@ void GameScene::Draw() {
 	for (Enemy*enemy: enemies_){
 	enemy->Draw();
 	}
-
+	//デスパーティクル
+	if (deathParticles_) {
+		deathParticles_->Draw();
+	}
 	Model::PostDraw();
 
 	#ifdef _DEBUG

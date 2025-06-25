@@ -7,6 +7,7 @@
 #include "MapchipField.h"
 #include "CameraController.h"
 #include "Enemy.h"
+#include "DeathParticles.h"
 
 using namespace KamataEngine ;
 
@@ -44,6 +45,9 @@ private:
 	 std::list<Enemy*> enemies_;
 	 Model* enemy_model_=nullptr ;
 
+	 //デスパーティクル
+	 DeathParticles* deathParticles_;
+	 Model* deathParticlesModel_=nullptr;
 
 public:
 	

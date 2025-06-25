@@ -1,6 +1,6 @@
 #include "DeathParticles.h"
-
-void DeathParticles::Initialze(Model* model, uint32_t textureHandle, Camera* camera, const Vector3& position) {
+#include "MassFunction.h"
+void DeathParticles::Initialze(Model* model, Camera* camera, const Vector3& position) {
 model_=model;
 camera_=camera;
 for (WorldTransform& worldTransform:worldTransforms_) {
@@ -9,5 +9,14 @@ for (WorldTransform& worldTransform:worldTransforms_) {
 }
 
 }
-void DeathParticles::Update(){}
-void DeathParticles::Draw(){}
+void DeathParticles::Update(){
+for (WorldTransform& worldTransform:worldTransforms_) {
+ WorldTransformUpdate(&worldTransform);
+}
+}
+void DeathParticles::Draw(){
+	for (WorldTransform& worldTransform:worldTransforms_) {
+	model_->Draw(worldTransform,*camera_);
+	}
+
+}
