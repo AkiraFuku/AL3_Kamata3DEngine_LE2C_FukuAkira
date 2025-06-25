@@ -10,6 +10,20 @@ for (WorldTransform& worldTransform:worldTransforms_) {
 
 }
 void DeathParticles::Update(){
+	for (uint32_t i = 0; i < kNumParticles; ++i) {
+		///速度ベクトル
+		Vector3 velocity={kSpeed_,0.0f,0.0f};
+		// 回転角の計算
+		float angle = kAngleUnit_*i;
+		//ｚ軸まわり回転行列
+		Matrix4x4 matrixRotation=MakeRotateZMatrix(angle);
+		velocity =Transform(velocity,matrixRotation);
+		//移動処理
+		worldTransforms_[i].translation_+velocity;
+	}
+
+
+
 for (WorldTransform& worldTransform:worldTransforms_) {
  WorldTransformUpdate(&worldTransform);
 }

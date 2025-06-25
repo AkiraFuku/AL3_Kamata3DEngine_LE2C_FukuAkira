@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include <array>
+#include <numbers>
 using namespace KamataEngine;
 class DeathParticles {
 public:
@@ -14,4 +15,12 @@ private:
 
 	static inline const uint32_t kNumParticles=8;
 	std::array<WorldTransform,kNumParticles> worldTransforms_;
+	//存続時間＜秒＞
+	static inline const float kDuration_=2.0f;
+	//　移動速度
+	static inline const float kSpeed_=0.05f;
+	// 分裂した一個分の角度
+	static inline const float kAngleUnit_=std::numbers::pi_v<float>*2.0f/kNumParticles ;
+
+
 };
