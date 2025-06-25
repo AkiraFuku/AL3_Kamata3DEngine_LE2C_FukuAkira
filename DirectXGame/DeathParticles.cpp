@@ -7,6 +7,8 @@ for (WorldTransform& worldTransform:worldTransforms_) {
 	worldTransform.Initialize();
 	worldTransform.translation_=position;
 }
+objectColor_.Initialize();
+color_={1,1,1,1};
 
 }
 void DeathParticles::Update(){
@@ -40,6 +42,8 @@ void DeathParticles::Update(){
 for (WorldTransform& worldTransform:worldTransforms_) {
  WorldTransformUpdate(&worldTransform);
 }
+
+
 }
 void DeathParticles::Draw(){
 	if (isFinished_) {

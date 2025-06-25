@@ -26,7 +26,8 @@ private:
 	//経過時間
 	float countor_=0.0f;
 
-
+	ObjectColor objectColor_;
+	Vector4 color_;
 
 
 };
