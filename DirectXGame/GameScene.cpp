@@ -100,7 +100,7 @@ void GameScene::Initialize() {
 	player_ = new Player();
 
 	// 自キャラの初期化
-	Vector3 playerPosition = mapchipField_->GetBlockPositionByIndex(1, 18);
+	Vector3 playerPosition = mapchipField_->GetBlockPositionByIndex(2, 18);
 	player_->Initialize(model_,teXtureHandle_,&camera_,playerPosition);
 	player_->SetMapchipField(mapchipField_);
     // 修正: player_->SetMapchipField(mapchipField_); に変更  

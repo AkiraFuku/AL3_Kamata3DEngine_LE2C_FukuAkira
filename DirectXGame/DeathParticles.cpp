@@ -32,7 +32,7 @@ void DeathParticles::Update(){
 		Matrix4x4 matrixRotation=MakeRotateZMatrix(angle);
 		velocity =Transform(velocity,matrixRotation);
 		//移動処理
-		worldTransforms_[i].translation_+velocity;
+		worldTransforms_[i].translation_+=velocity;
 	}
 
 
