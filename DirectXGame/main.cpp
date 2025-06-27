@@ -13,6 +13,10 @@ enum class Scene {
 
 };
 Scene scene = Scene::kUnknown; 
+
+void ChangeScene();
+
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	
@@ -24,6 +28,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//gameScene = new GameScene();
 	// ゲームシーンの初期化
 	//gameScene->Initialize();
+	scene = Scene::kTitle; // シーンをタイトルに設定
 	// タイトルシーンのインスタンスを生成
 	titleScene = new TitleScene;
 	// タイトルシーンの初期化
@@ -59,4 +64,26 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// エンジンの終了処理
 	KamataEngine::Finalize();
 	return 0;
+}
+void ChangeScene() {
+	switch (scene) {
+	
+	case Scene::kTitle:
+		if (titleScene->IsFinished()) {
+			//シーン変更
+			scene = Scene::kGame;
+			// タイトルシーンの終了処理
+			delete titleScene;
+			titleScene = nullptr;
+			// ゲームシーンのインスタンスを生成
+			gameScene = new GameScene;
+			// ゲームシーンの初期化
+			gameScene->Initialize();
+		}
+		break;
+	case Scene::kGame:
+		break;
+	default:
+		break;
+	}
 }
