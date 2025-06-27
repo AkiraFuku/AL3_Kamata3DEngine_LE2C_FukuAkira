@@ -49,6 +49,13 @@ private:
 	 DeathParticles* deathParticles_;
 	 Model* deathParticlesModel_=nullptr;
 
+	 //フェーズ
+	 enum class Phase{
+		 kPlay, // プレイ中
+		 kDeath, // 死亡
+	 };
+	 Phase phase_ = Phase::kPlay;
+
 public:
 	
 	//// デストラクタ
