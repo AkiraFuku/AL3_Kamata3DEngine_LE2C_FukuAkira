@@ -2,15 +2,24 @@
 #include "KamataEngine.h"
 using namespace KamataEngine;
 class TitleScene {  
-public:  
+public:
+	~TitleScene() ;
 	void Initialize();  
 	void Update();  
-	void Draw(); 
+	void Draw();
+	
 	bool IsFinished() const { return finished_; }
 
 private:
+	static inline const float kTimeTitleMove = 2.0f;
+
+	// ビュープロジェクション
+	Camera camera_;
+	WorldTransform worldTransformTitle_;
+	WorldTransform worldTransformPlayer_;
+	float counter_ = 0.0f;
 	bool finished_ = false;
-	Model titleModel_;
-	Model playerModel_;
+	Model* titleModel_;
+	Model* playerModel_;
 
 };
