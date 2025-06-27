@@ -6,8 +6,10 @@ TitleScene::~TitleScene() {
 	delete playerModel_;
 }
 void TitleScene::Initialize() {
-	titleModel_ = Model::CreateFromOBJ("title",true);	
+	titleModel_ = Model::CreateFromOBJ("titleFont",true);	
 	playerModel_ = Model::CreateFromOBJ("player"); 
+		// カメラ初期化
+	camera_.Initialize();
 		const float kPlayerTitle = 2.0f;
 
 	worldTransformTitle_.Initialize();
