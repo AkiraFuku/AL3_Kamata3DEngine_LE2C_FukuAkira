@@ -136,7 +136,16 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	switch (phase_) {
 	case GameScene::Phase::kPlay:
+		// スカイドームの更新
+		skydome_->Update();
+		// player_の更新
 		player_->Update();
+		// エネミー
+		for (Enemy* enemy : enemies_) {
+			enemy->Update();	
+		}
+		// カメラの更新
+		cameraControlle_->Update();
 		///// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
@@ -147,23 +156,33 @@ void GameScene::Update() {
 				WorldTransformUpdate(WorldTransformBlock);
 			}
 		}
-
-		// スカイドームの更新
-		skydome_->Update();
-		// カメラの更新
-		cameraControlle_->Update();
-		// エネミー
-		for (Enemy* enemy : enemies_) {
-			enemy->Update();
-
-			CheckAllCollisions();
-		}
+		CheckAllCollisions();
+		
+		
 
 		break;
 	case GameScene::Phase::kDeath:
+		// スカイドームの更新
+		skydome_->Update();
+		// エネミー
+		for (Enemy* enemy : enemies_) {
+			enemy->Update();	
+		}
 		// デスパーティクル
 		if (deathParticles_) {
 			deathParticles_->Update();
+		}
+		// カメラの更新
+		cameraControlle_->Update();
+		///// ブロックの更新
+		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
+			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
+				if (!WorldTransformBlock) {
+					continue;
+				}
+
+				WorldTransformUpdate(WorldTransformBlock);
+			}
 		}
 		break;
 	}
