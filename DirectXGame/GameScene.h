@@ -56,6 +56,7 @@ private:
 	 };
 	 Phase phase_ = Phase::kPlay;
 
+	 bool finished_ = false; // ゲーム終了フラグ	
 	 
 
 public:
@@ -74,5 +75,8 @@ public:
 	void CheckAllCollisions();
 	// フェーズの切り替え
 	void ChangePhase();
+
+	// ゲーム終了
+	bool IsFinished() const { return finished_; }
 	
 };
