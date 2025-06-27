@@ -1,13 +1,13 @@
-#pragma once  
+#pragma once
 #include "KamataEngine.h"
 using namespace KamataEngine;
-class TitleScene {  
+class TitleScene {
 public:
-	~TitleScene() ;
-	void Initialize();  
-	void Update();  
+	~TitleScene();
+	void Initialize();
+	void Update();
 	void Draw();
-	
+
 	bool IsFinished() const { return finished_; }
 
 private:
@@ -21,5 +21,4 @@ private:
 	bool finished_ = false;
 	Model* titleModel_;
 	Model* playerModel_;
-
 };
