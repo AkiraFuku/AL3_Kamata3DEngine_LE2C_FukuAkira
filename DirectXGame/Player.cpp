@@ -67,7 +67,9 @@ void Player::Update() {
 }
 
 void Player::Draw() { 
-	model_->Draw(worldTransform_, *camera_); }
+	
+	model_->Draw(worldTransform_, *camera_);
+}
 
 void Player::MapCollisionCheck(CollisionMapInfo& collisionMapInfo) {
 	CheckMapCollisionUp(collisionMapInfo);
@@ -417,8 +419,8 @@ return aabb;
 
 void Player::OnCollision(const Enemy* enemy) {
 (void)enemy;
-
-	velocity_+=Vector3(0.0f,kJumpAcceleration/60.0f,0.0f);
+	isDead_ = true;
+	//velocity_+=Vector3(0.0f,kJumpAcceleration/60.0f,0.0f);
 }
 
 

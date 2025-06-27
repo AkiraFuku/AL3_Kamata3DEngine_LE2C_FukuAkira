@@ -30,7 +30,10 @@ GameScene::~GameScene() {
 	for (Enemy* enemy : enemies_) {
 		delete enemy;
 	}
+	
+
 	delete deathParticles_;
+	delete deathParticlesModel_;
 }
 // ゲームシーンのブロック生成
 void GameScene::GenerateBlock() {
@@ -75,6 +78,7 @@ void GameScene::CheckAllCollisions() {
 
 #pragma endregion
 }
+
 
 //  ゲームシーンの初期化
 void GameScene::Initialize() {
@@ -127,13 +131,32 @@ void GameScene::Initialize() {
 	}
 	// デスパーティクル
 	deathParticlesModel_ = Model::CreateFromOBJ("deathParticle");
-	deathParticles_ = new DeathParticles;
-	deathParticles_->Initialze(deathParticlesModel_, &camera_, playerPosition);
 	// フェーズ
 	phase_ = Phase::kPlay;
 }
+void GameScene::ChangePhase() {
+	switch (phase_) {
+	case Phase::kPlay:
+		if (player_->IsDead()) {
+			phase_ = Phase::kDeath;
+		}
+		const Vector3 deathParticlesPosition = player_->GetWorldTransform().translation_;
+
+		deathParticles_ = new DeathParticles;
+		deathParticles_->Initialze(deathParticlesModel_, &camera_, deathParticlesPosition);
+
+		break;
+	case Phase::kDeath:
+	
+		break;
+	}
+
+}
+
 // ゲームシーンの更新
 void GameScene::Update() {
+	ChangePhase();
+	
 	switch (phase_) {
 	case GameScene::Phase::kPlay:
 		// スカイドームの更新
@@ -196,7 +219,10 @@ void GameScene::Draw() {
 
 	Model::PreDraw(dxCommon->GetCommandList());
 	// カメラの描画
-	player_->Draw();
+	if (!player_->IsDead()) {
+		player_->Draw();
+	}
+	
 	// ブロックの描画
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 

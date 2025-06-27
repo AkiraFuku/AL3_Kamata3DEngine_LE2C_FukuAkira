@@ -56,6 +56,8 @@ private:
 	 };
 	 Phase phase_ = Phase::kPlay;
 
+	 
+
 public:
 	
 	//// デストラクタ
@@ -70,5 +72,7 @@ public:
 	void GenerateBlock();
 	//当たり判定
 	void CheckAllCollisions();
-
+	// フェーズの切り替え
+	void ChangePhase();
+	
 };
