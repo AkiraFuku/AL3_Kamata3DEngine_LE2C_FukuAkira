@@ -8,7 +8,7 @@ public:
 	void Update();
 	void Draw();
 
-	bool IsFinished() const { return finished_; }
+	bool IsFinished()  { return finished_; }
 
 private:
 	static inline const float kTimeTitleMove = 2.0f;

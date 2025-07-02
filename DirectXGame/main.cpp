@@ -31,6 +31,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// ゲームシーンの初期化
 	//gameScene->Initialize();
 	scene = Scene::kTitle; // シーンをタイトルに設定
+	titleScene = new TitleScene;
+	titleScene->Initialize();
+	
 	
 	// メインループ
 	while (true) {
@@ -56,7 +59,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	}
 	// ゲームシーンの終了
-	//delete gameScene;
+	delete gameScene;
 	delete titleScene;
 	// エンジンの終了処理
 	KamataEngine::Finalize();

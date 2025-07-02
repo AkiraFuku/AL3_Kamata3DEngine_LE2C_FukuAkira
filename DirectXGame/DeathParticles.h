@@ -8,6 +8,7 @@ public:
 	void Initialze(Model* model,Camera* camera,const Vector3& position );
 	void Update();
 	void Draw();
+	bool IsFinished()  { return isFinished_; }
 
 private:
 	Model*model_=nullptr;
