@@ -15,6 +15,8 @@ enum class Scene {
 Scene scene = Scene::kUnknown; 
 
 void ChangeScene();
+void UpdateScene() ;
+void DrawScene();
 
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -29,27 +31,22 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// ゲームシーンの初期化
 	//gameScene->Initialize();
 	scene = Scene::kTitle; // シーンをタイトルに設定
-	// タイトルシーンのインスタンスを生成
-	titleScene = new TitleScene;
-	// タイトルシーンの初期化
-	titleScene->Initialize();
+	
 	// メインループ
 	while (true) {
 		// エンジンの更新
 		if (KamataEngine::Update()) {
 		}
 		// ゲームシーンの更新
-	//	gameScene->Update();
-	// 
-		titleScene->Update();	
+		ChangeScene();
+		UpdateScene();
 		//描画開始
 		dxCommon->PreDraw();
 		
 		///
 		/// 描画処理
 		///
-		//gameScene->Draw();
-		titleScene->Draw();
+		DrawScene();
 		/// 
 		/// 描画処理 
 		///
@@ -82,8 +79,40 @@ void ChangeScene() {
 		}
 		break;
 	case Scene::kGame:
+			if (gameScene->IsFinished()) {
+			// シーン変更
+			scene = Scene::kTitle;
+			delete gameScene;
+			gameScene = nullptr;
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		}
+	break;
+	
+	}
+}
+void UpdateScene() {
+	// シーンの更新処理
+	switch (scene) {
+	case Scene::kTitle:
+		titleScene->Update();
 		break;
-	default:
+	case Scene::kGame:
+		gameScene->Update();
 		break;
+	
+	}
+	
+}
+void DrawScene() {
+	// シーンの描画処理
+	switch (scene) {
+	case Scene::kTitle:
+		titleScene->Draw();
+		break;
+	case Scene::kGame:
+		gameScene->Draw();
+		break;
+	
 	}
 }
