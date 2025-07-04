@@ -31,6 +31,8 @@ void TitleScene::Initialize() {
 
 	fade_ = new Fade();
 	fade_->Initialize();
+
+	fade_ ->Start(Fade::Status::FadeIn,1.0f);
 };
 void TitleScene::Update() {
 

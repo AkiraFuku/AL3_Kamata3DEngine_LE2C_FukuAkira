@@ -10,6 +10,15 @@ void Fade::Update(){
 	case Fade::Status::None:  
 		break;  
 	case Fade::Status::FadeIn:  
+		// カウンターを進める  
+		counter_ += 1.0f / 60.0f;  
+		// カウンターがdurationを超えた打ち止め  
+		if (counter_>= duration_) {  
+			counter_ = duration_;  
+		}  
+
+		// アルファ値を計算
+		sprite_->SetColor(Vector4(0, 0, 0, std::clamp(1.0f - counter_ / duration_, 0.0f, 1.0f)));
 
 		break;  
 	case Fade::Status::FadeOut:  
