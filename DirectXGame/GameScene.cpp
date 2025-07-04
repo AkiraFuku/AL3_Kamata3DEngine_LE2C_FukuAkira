@@ -132,7 +132,12 @@ void GameScene::Initialize() {
 	// デスパーティクル
 	deathParticlesModel_ = Model::CreateFromOBJ("deathParticle");
 	// フェーズ
-	phase_ = Phase::kPlay;
+	phase_ = Phase::kFadeIn;
+	//フェード
+	fade_ = new Fade();
+	fade_->Initialize();
+	fade_->Start(Fade::Status::FadeIn, 1.0f);
+
 }
 void GameScene::ChangePhase() {
 	switch (phase_) {
@@ -147,12 +152,14 @@ void GameScene::ChangePhase() {
 
 		break;
 	case Phase::kDeath:
-		if (deathParticles_&&deathParticles_->IsFinished()) {
+		/*if (deathParticles_&&deathParticles_->IsFinished()) {
 			finished_ = true;
-		}
+		}*/
 	
 		break;
 	}
+
+	
 
 }
 
@@ -161,17 +168,44 @@ void GameScene::Update() {
 	ChangePhase();
 	
 	switch (phase_) {
+
+		case GameScene::Phase::kFadeIn:
+		// フェードの更新
+		fade_->Update();
+		if (fade_->IsFinished()) {
+			fade_->Start(Fade::Status::FadeOut, 1.0f);
+			phase_ = GameScene::Phase::kPlay;
+		}
+		// スカイドームの更新
+		skydome_->Update();
+		cameraControlle_->Update();
+		player_->Update();
+		// エネミー
+		for (Enemy* enemy : enemies_) {
+			enemy->Update();	
+		}
+		// ブロックの更新
+		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
+			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
+				if (!WorldTransformBlock) {
+					continue;
+				}
+				WorldTransformUpdate(WorldTransformBlock);
+			}
+		}
+		break;
 	case GameScene::Phase::kPlay:
 		// スカイドームの更新
 		skydome_->Update();
+		// カメラの更新
+		cameraControlle_->Update();
 		// player_の更新
 		player_->Update();
 		// エネミー
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();	
 		}
-		// カメラの更新
-		cameraControlle_->Update();
+		
 		///// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
@@ -188,8 +222,17 @@ void GameScene::Update() {
 
 		break;
 	case GameScene::Phase::kDeath:
+		if (deathParticles_&&deathParticles_->IsFinished()) {
+
+			//fade_->Start(Fade::Status::FadeOut, 1.0f);
+			        printf("Phase: kFadeOut に遷移\n");
+			phase_ = GameScene::Phase::kFadeOut;
+
+		}
 		// スカイドームの更新
 		skydome_->Update();
+		// カメラの更新
+		cameraControlle_->Update();
 		// エネミー
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();	
@@ -198,8 +241,7 @@ void GameScene::Update() {
 		if (deathParticles_) {
 			deathParticles_->Update();
 		}
-		// カメラの更新
-		cameraControlle_->Update();
+		
 		///// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
@@ -211,9 +253,21 @@ void GameScene::Update() {
 			}
 		}
 		break;
-	}
 
-	
+		case GameScene::Phase::kFadeOut:
+		// フェードの更新
+		    fade_->Update();
+		if (fade_->IsFinished()) {
+			    finished_ = true;
+		}
+		
+		skydome_->Update();
+		cameraControlle_->Update();
+		for (Enemy* enemy: enemies_) {
+			enemy->Update();	
+		}
+		break;
+	}
 }
 // ゲームシーンの描画
 void GameScene::Draw() {
@@ -248,6 +302,10 @@ void GameScene::Draw() {
 		deathParticles_->Draw();
 	}
 	Model::PostDraw();
+
+	Sprite::PreDraw(dxCommon->GetCommandList());
+	fade_->Draw();
+	Sprite::PostDraw();
 
 #ifdef _DEBUG
 	if (Input::GetInstance()->TriggerKey(DIK_TAB)) {
