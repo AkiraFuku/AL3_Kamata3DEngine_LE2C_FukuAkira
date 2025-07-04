@@ -14,6 +14,9 @@ class Fade {
 		void Update();
 		void Draw();
 		void Start(Status status, float duration) ;
+		void Stop();
+		bool Isfinished() const ;
+
 	private:
 	    Sprite* sprite_ = nullptr;
 	    Status status_ = Status::None;
