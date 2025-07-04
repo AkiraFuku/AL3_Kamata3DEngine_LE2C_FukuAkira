@@ -4,6 +4,7 @@
 TitleScene::~TitleScene() {
 	delete titleModel_;
 	delete playerModel_;
+	delete fade_;
 }
 void TitleScene::Initialize() {
 	titleModel_ = Model::CreateFromOBJ("titleFont", true);
@@ -27,8 +28,13 @@ void TitleScene::Initialize() {
 	worldTransformPlayer_.translation_.x = -2.0f;
 
 	worldTransformPlayer_.translation_.y = -10.0f;
+
+	fade_ = new Fade();
+	fade_->Initialize();
 };
 void TitleScene::Update() {
+
+	fade_->Update();
 	if (Input::GetInstance()->PushKey(DIK_SPACE)) {
 		finished_ = true;
 	}
@@ -54,4 +60,5 @@ void TitleScene::Draw() {
 	playerModel_->Draw(worldTransformPlayer_, camera_);
 	titleModel_->Draw(worldTransformTitle_, camera_);
 	Model::PostDraw();
+	fade_->Draw();
 };

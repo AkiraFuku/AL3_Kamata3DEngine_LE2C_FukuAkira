@@ -4,8 +4,8 @@ using namespace KamataEngine;
 class Fade {
 	public:
 		void Initialize();
-		void Update_();
-		void Draw_();
+		void Update();
+		void Draw();
 
 	private:
 	    Sprite* sprite_ = nullptr;

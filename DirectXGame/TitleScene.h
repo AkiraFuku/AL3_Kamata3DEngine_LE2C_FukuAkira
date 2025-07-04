@@ -1,5 +1,6 @@
 #pragma once
 #include "KamataEngine.h"
+#include "Fade.h"
 using namespace KamataEngine;
 class TitleScene {
 public:
@@ -21,4 +22,5 @@ private:
 	bool finished_ = false;
 	Model* titleModel_;
 	Model* playerModel_;
+	Fade* fade_=nullptr;
 };
