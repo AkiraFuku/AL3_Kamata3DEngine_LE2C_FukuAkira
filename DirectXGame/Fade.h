@@ -15,7 +15,7 @@ class Fade {
 		void Draw();
 		void Start(Status status, float duration) ;
 		void Stop();
-		bool Isfinished() const ;
+		bool IsFinished() const ;
 
 	private:
 	    Sprite* sprite_ = nullptr;

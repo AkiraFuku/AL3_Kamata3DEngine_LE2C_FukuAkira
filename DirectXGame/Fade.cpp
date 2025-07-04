@@ -52,7 +52,7 @@ void Fade::Stop() {
 	status_= Status::None;
 
 }
-bool Fade::Isfinished() const {
+bool Fade::IsFinished() const {
 	switch (status_) {
 
 	case Fade::Status::FadeIn:
@@ -62,8 +62,6 @@ bool Fade::Isfinished() const {
 		} else {  
 			return false;  
 		}	
-		
-	break;
 	}
 	return true;
 };
