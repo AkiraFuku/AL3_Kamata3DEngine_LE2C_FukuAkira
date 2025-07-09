@@ -72,6 +72,10 @@ enum Corner {
 	void OnCollision(const Enemy*enemy);
 	// 死亡判定
 	bool IsDead() const { return isDead_; }
+
+	//通常行動の更新
+	void BehaviorRootUpdate();
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル

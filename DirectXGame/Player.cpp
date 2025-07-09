@@ -22,47 +22,43 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Camera* camera,const
 
 void Player::Update() {
 	
+	BehaviorRootUpdate();
 	
-	// 入力処理
-	inputMove();
+	//// 入力処理
+	//inputMove();
 
-	// 衝突判定
-	CollisionMapInfo collisionMapInfo;
-	collisionMapInfo.move = velocity_;
-	MapCollisionCheck(collisionMapInfo);
-
-
-	// 衝突判定結果をワールドトランスフォームに反映
-	ResultCollisionMapInfo(collisionMapInfo);
-	// 天井に当たった場合の処理
-	hitCeiling(collisionMapInfo);
-	HitWall(collisionMapInfo);
-	//着地
-	UpdatOnGround(collisionMapInfo);
-	
-	// 旋回
-	if (turnTimer_>0.0f) {
-		// 旋回時間を減少
-		turnTimer_ =std::max(turnTimer_-(1.0f/60.0f),0.0f);
-		// 旋回角度
+	//// 衝突判定
+	//CollisionMapInfo collisionMapInfo;
+	//collisionMapInfo.move = velocity_;
+	//MapCollisionCheck(collisionMapInfo);
 
 
+	//// 衝突判定結果をワールドトランスフォームに反映
+	//ResultCollisionMapInfo(collisionMapInfo);
+	//// 天井に当たった場合の処理
+	//hitCeiling(collisionMapInfo);
+	//HitWall(collisionMapInfo);
+	////着地
+	//UpdatOnGround(collisionMapInfo);
+	//
+	//// 旋回
+	//if (turnTimer_>0.0f) {
+	//	// 旋回時間を減少
+	//	turnTimer_ =std::max(turnTimer_-(1.0f/60.0f),0.0f);
+	//	// 旋回角度
 
-		float destinationRotationYTable[]={
-	    std::numbers::pi_v<float>/2.0f,
-	    std::numbers::pi_v<float>*3.0f/2.0f
-		} ;
 
-	float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
-	worldTransform_.rotation_.y = EaseInOut( destinationRotationY, turnFirstRotationY_,turnTimer_ / kTimeTurn);
-	} 
-	
+	//	float destinationRotationYTable[]={
+	//    std::numbers::pi_v<float>/2.0f,
+	//    std::numbers::pi_v<float>*3.0f/2.0f
+	//	} ;
 
-	
+	//float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
-	
-	WorldTransformUpdate(&worldTransform_);
+	//worldTransform_.rotation_.y = EaseInOut( destinationRotationY, turnFirstRotationY_,turnTimer_ / kTimeTurn);
+	//} 
+	//WorldTransformUpdate(&worldTransform_);
 
 }
 
@@ -421,6 +417,49 @@ void Player::OnCollision(const Enemy* enemy) {
 (void)enemy;
 	isDead_ = true;
 	//velocity_+=Vector3(0.0f,kJumpAcceleration/60.0f,0.0f);
+}
+
+void Player::BehaviorRootUpdate() {
+// 入力処理
+	inputMove();
+
+	// 衝突判定
+	CollisionMapInfo collisionMapInfo;
+	collisionMapInfo.move = velocity_;
+	MapCollisionCheck(collisionMapInfo);
+
+
+	// 衝突判定結果をワールドトランスフォームに反映
+	ResultCollisionMapInfo(collisionMapInfo);
+	// 天井に当たった場合の処理
+	hitCeiling(collisionMapInfo);
+	HitWall(collisionMapInfo);
+	//着地
+	UpdatOnGround(collisionMapInfo);
+	
+	// 旋回
+	if (turnTimer_>0.0f) {
+		// 旋回時間を減少
+		turnTimer_ =std::max(turnTimer_-(1.0f/60.0f),0.0f);
+		// 旋回角度
+
+
+
+		float destinationRotationYTable[]={
+	    std::numbers::pi_v<float>/2.0f,
+	    std::numbers::pi_v<float>*3.0f/2.0f
+		} ;
+
+	float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
+
+	worldTransform_.rotation_.y = EaseInOut( destinationRotationY, turnFirstRotationY_,turnTimer_ / kTimeTurn);
+	} 
+	
+
+	
+
+	
+	WorldTransformUpdate(&worldTransform_);
 }
 
 
