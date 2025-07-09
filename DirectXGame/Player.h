@@ -83,6 +83,10 @@ enum Corner {
 	// 　攻撃行動の更新
 	void BehaviorAttackUpdate();
 
+	//
+	void BehaviorRootInitialize();
+	void BehaviorAttackInitialize();
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル

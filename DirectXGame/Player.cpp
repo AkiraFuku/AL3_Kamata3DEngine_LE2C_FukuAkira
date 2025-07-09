@@ -27,17 +27,30 @@ void Player::Update() {
 		switch (behavior_) {
 		case Player::Behavior::kRoot:
 		default:
-
+			BehaviorRootInitialize();
 			break;
 		case Player::Behavior::kAttack:
+			BehaviorAttackInitialize();
 			break;
 		}
 		// 挙動リクエストを初期化
 		behaviorRequest_ = Behavior::kUnknown;
 	}
 
-	//BehaviorRootUpdate();
-	BehaviorAttackUpdate();
+	switch (behavior_) {
+
+	case Player::Behavior::kRoot:
+	default:
+		BehaviorRootUpdate();
+		break;
+	case Player::Behavior::kAttack:
+		BehaviorAttackUpdate();
+		break;
+	
+	}
+
+	
+	
 
 	WorldTransformUpdate(&worldTransform_);
 
@@ -77,7 +90,10 @@ void Player::BehaviorRootUpdate() {
 
 	worldTransform_.rotation_.y = EaseInOut( destinationRotationY, turnFirstRotationY_,turnTimer_ / kTimeTurn);
 	} 
-	
+	//攻撃に切り替え
+	if (Input::GetInstance()->TriggerKey(DIK_SPACE)) {
+		behaviorRequest_ = Behavior::kAttack;
+	}
 
 	
 
@@ -87,8 +103,12 @@ void Player::BehaviorRootUpdate() {
 
 void Player::BehaviorAttackUpdate() {
 
-	worldTransform_.translation_.x+=0.1f;
+	worldTransform_.translation_.x+=1.0f;
 }
+
+void Player::BehaviorRootInitialize() {}
+
+void Player::BehaviorAttackInitialize() {}
 
 void Player::Draw() { 
 	
