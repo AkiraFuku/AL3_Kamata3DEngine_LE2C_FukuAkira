@@ -15,6 +15,11 @@ class Player {
 public:
 
 	enum class LRDirection { kRight, kLeft,  };
+	enum class Behavior {
+		kUnknown, ///< 未定義
+		kRoot, ///< 通常行動
+		kAttack, ///< 攻撃行動
+	};
 
 struct CollisionMapInfo {
 		bool isCeiling = false; ///< 天井に衝突しているか
@@ -75,6 +80,8 @@ enum Corner {
 
 	//通常行動の更新
 	void BehaviorRootUpdate();
+	// 　攻撃行動の更新
+	void BehaviorAttackUpdate();
 
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
@@ -108,4 +115,8 @@ private:
 	static inline const float kAttenuationWall = 0.2f;
 	//死亡フラグ
 	 bool isDead_ = false;
+
+	 // 行動状態
+	 Behavior behavior_ = Behavior::kRoot; ///< 行動状態
+	 Behavior behaviorRequest_ = Behavior::kUnknown; ///< 次の行動状態
 };
