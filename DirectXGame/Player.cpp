@@ -4,17 +4,23 @@
 #include <algorithm>
 #include <numbers>
 
-void Player::Initialize(Model* model, uint32_t textureHandle, Camera* camera, const Vector3& position) {
+void Player::Initialize(Model* model,Model* modelAttack, uint32_t textureHandle, Camera* camera, const Vector3& position) {
 	assert(model);
 	/// 引数をメンバ変数に格納
 	/// モデル
 	model_ = model;
+	// 攻撃モデル
+	modelAttack_ = modelAttack;
+
 	// テクスチャハンドル
 	textureHandle_ = textureHandle;
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
+	worldTransformAttack_.Initialize();
+	worldTransformAttack_.translation_ = position;
+	worldTransformAttack_.rotation_ =worldTransform_.rotation_;
 	// カメラ
 	camera_ = camera;
 }
@@ -48,6 +54,7 @@ void Player::Update() {
 	}
 
 	WorldTransformUpdate(&worldTransform_);
+	WorldTransformUpdate(&worldTransformAttack_);
 }
 void Player::BehaviorRootUpdate() {
 	// 入力処理
@@ -147,13 +154,31 @@ void Player::BehaviorAttackUpdate() {
 	MapCollisionCheck(collisionMapInfo);
 	worldTransform_.translation_ += collisionMapInfo.move;
 
+	worldTransformAttack_.translation_ = worldTransform_.translation_;
+	worldTransformAttack_.rotation_ = worldTransform_.rotation_;
+
 }
 
 void Player::BehaviorRootInitialize() {}
 
 void Player::BehaviorAttackInitialize() { attackParameter_ = 0; }
 
-void Player::Draw() { model_->Draw(worldTransform_, *camera_); }
+void Player::Draw() { 
+	
+	model_->Draw(worldTransform_, *camera_);
+	if (behavior_ == Behavior::kAttack) {
+		switch (attackPhase_) {
+		case AttackPhase::kCharge:
+		default:
+			// 予備動作中は攻撃モデルを描画しない
+			break;
+		case AttackPhase::kAttack:
+		case AttackPhase::kAfter:
+			modelAttack_->Draw(worldTransformAttack_, *camera_);
+			break;
+		}
+	}
+}
 
 void Player::MapCollisionCheck(CollisionMapInfo& collisionMapInfo) {
 	CheckMapCollisionUp(collisionMapInfo);

@@ -17,6 +17,7 @@ class GameScene {
 private:
 	//3Dモデル
 	Model* model_ = nullptr;
+	Model* AttackModel_ = nullptr;
 	
 	Model* blockM_ = nullptr;
 

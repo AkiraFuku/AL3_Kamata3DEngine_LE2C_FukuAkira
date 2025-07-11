@@ -47,7 +47,7 @@ enum Corner {
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model,uint32_t textureHandle,Camera* camera,const Vector3& position );
+	void Initialize(Model* model,Model* modelAttack,uint32_t textureHandle,Camera* camera,const Vector3& position );
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -137,4 +137,6 @@ private:
 	static inline const uint32_t  kAttackTime= 5;
 	static inline const uint32_t  kAfterTime= 12;
 	
+	Model* modelAttack_ = nullptr; ///< 攻撃用モデル
+	WorldTransform worldTransformAttack_; ///< 攻撃用ワールドトランスフォーム
 };

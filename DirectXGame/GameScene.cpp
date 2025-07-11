@@ -8,6 +8,7 @@ using namespace KamataEngine;
 GameScene::~GameScene() {
 	delete player_;
 	delete model_;
+	delete AttackModel_;
 	///
 	delete blockM_;
 	//
@@ -93,10 +94,11 @@ void GameScene::Initialize() {
 
 	// 自キャラ生成
 	player_ = new Player();
+	AttackModel_ = Model::CreateFromOBJ("attack_effect", true);
 
 	// 自キャラの初期化
 	Vector3 playerPosition = mapchipField_->GetBlockPositionByIndex(2, 18);
-	player_->Initialize(model_, teXtureHandle_, &camera_, playerPosition);
+	player_->Initialize(model_,AttackModel_, teXtureHandle_, &camera_, playerPosition);
 	player_->SetMapchipField(mapchipField_);
 	// 修正: player_->SetMapchipField(mapchipField_); に変更
 	//	//ブロックモデル生成
