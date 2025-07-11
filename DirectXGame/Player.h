@@ -123,4 +123,6 @@ private:
 	 // 行動状態
 	 Behavior behavior_ = Behavior::kRoot; ///< 行動状態
 	 Behavior behaviorRequest_ = Behavior::kUnknown; ///< 次の行動状態
+	 // 攻撃の経過時間カウンター
+	 uint32_t attackParameter_ = 0; ///< 攻撃の経過時間カウンター
 };

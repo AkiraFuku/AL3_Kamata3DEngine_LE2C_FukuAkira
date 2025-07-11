@@ -102,13 +102,21 @@ void Player::BehaviorRootUpdate() {
 }
 
 void Player::BehaviorAttackUpdate() {
+	attackParameter_++;
+	// 攻撃の挙動を実装する場合はここに記述
+	if (attackParameter_>=10) {
+		behaviorRequest_ = Behavior::kRoot; // 攻撃が終わったらRootに戻す
+	}
+
 
 	worldTransform_.translation_.x+=1.0f;
 }
 
 void Player::BehaviorRootInitialize() {}
 
-void Player::BehaviorAttackInitialize() {}
+void Player::BehaviorAttackInitialize() {
+attackParameter_=0;
+}
 
 void Player::Draw() { 
 	
