@@ -86,6 +86,7 @@ void Player::BehaviorRootUpdate() {
 
 void Player::BehaviorAttackUpdate() {
 	const Vector3 attackVelocity = {0.8f, 0.0f, 0.0f};
+	velocity_ = {0.0f, 0.0f, 0.0f}; // 攻撃時は移動しない
 	Vector3 velocity = {};
 	attackParameter_++;
 	switch (attackPhase_) {
@@ -127,6 +128,12 @@ void Player::BehaviorAttackUpdate() {
 		float t = static_cast<float>(attackParameter_) / kAfterTime; // 1秒間の攻撃後
 		worldTransform_.scale_.z = EaseOut(1.3f, 1.0f, t);
 		worldTransform_.scale_.y = EaseOut(0.7f, 1.0f, t);
+		if (attackParameter_ >= kAfterTime) {
+        // 攻撃完了。元のRoot状態に戻す
+        behaviorRequest_ = Behavior::kRoot;
+        attackPhase_ = AttackPhase::kUnknown; // 初期化
+        attackParameter_ = 0;
+    }
 		break;
 	}
 	}
