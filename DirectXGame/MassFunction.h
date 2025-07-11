@@ -56,8 +56,8 @@ Matrix4x4 MakeRotateXMatrix( float radian);
 Matrix4x4 MakeRotateYMatrix( float radian);
 Matrix4x4 MakeRotateZMatrix( float radian);
 
-float EaseIn(float t);
-float EaseOut(float t);
+float EaseIn(float x1, float x2, float t);
+float EaseOut(float x1, float x2, float t);
 float EaseInOut(float s,float g ,float t);
 //float Lerp(float x1,float x2,float t){return(1.0f-t)*x1+t*x2; }
 	/// <summary>

@@ -35,6 +35,13 @@ enum Corner {
 		kNumCorner   ///< コーナーの数
 	
 };
+	enum class AttackPhase {
+	kUnknown, ///< 未定義
+	kCharge, ///< 溜め
+	kAttack, ///< 攻撃
+	kAfter,  ///< 攻撃後
+
+	};
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -125,4 +132,9 @@ private:
 	 Behavior behaviorRequest_ = Behavior::kUnknown; ///< 次の行動状態
 	 // 攻撃の経過時間カウンター
 	 uint32_t attackParameter_ = 0; ///< 攻撃の経過時間カウンター
+	 AttackPhase attackPhase_=AttackPhase::kUnknown; ///< 攻撃フェーズ
+	static inline const uint32_t  kChageTime= 8;
+	static inline const uint32_t  kAttackTime= 5;
+	static inline const uint32_t  kAfterTime= 12;
+	
 };

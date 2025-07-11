@@ -48,13 +48,15 @@ const Vector3 operator*(const Vector3 &v1, const float f) {
 	return temp *= f;
 }
 
-float EaseIn(float t) {
-	float easedT = t * t*t*t*t;
-		return easedT; 
-};
-float EaseOut(float t) {
-	float easedT = 1.0f-powf(1.0f-t,5.0f);
-	return easedT;
+float EaseIn(float x1, float x2, float t) {
+	float easedT = t * t;
+
+	return Lerp(x1, x2, easedT);
+}
+float EaseOut(float x1, float x2, float t) {
+	float easedT = 1.0f - std::powf(1.0f - t, 3.0f);
+
+	return Lerp(x1, x2, easedT);
 }
 
 float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2; }
