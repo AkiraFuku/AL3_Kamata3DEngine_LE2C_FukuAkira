@@ -24,6 +24,22 @@ void Enemy::Initialize(Model* model, Camera* camera,Vector3& position) {
 }
 void Enemy::Update() {
 
+		if (behaviorRequest_ != Behavior::kUnknown) {
+		// 振るまいを変更する
+		behavior_ = behaviorRequest_;
+
+		// 各振るまいごとの初期化を実行
+		switch (behavior_) {
+		case Behavior::kDead:
+		default:
+			counter_ = 0.0f;
+		break;
+		}
+
+		// 振るまいリクエストをリセット
+		behaviorRequest_ = Behavior::kUnknown;
+	}
+
 	switch (behavior_) {
 	
 	case Enemy::Behavior::kWalk:
@@ -34,8 +50,20 @@ void Enemy::Update() {
 	float param= std::sinf(std::numbers::pi_v<float>*2.0f*walkTimer_/kWalkMotionTime);
 	float degree =kWalkMotionAngleStart+kWalkMotionAngleEnd*(param+1.0f)/2.0f;
 	worldTransform_.rotation_.x=Radian(degree);
+	WorldTransformUpdate(&worldTransform_);
 		break;
 	case Enemy::Behavior::kDead:
+		// 死亡時の処理
+		// 死亡アニメーションの時間を経過させる
+		counter_ += 1.0f / 60.0f; // 1フレーム分の時間を引く
+		worldTransform_.rotation_.y+=0.3f ; // Y座標を下げる
+		worldTransform_.rotation_.x=EaseOut();
+
+		WorldTransformUpdate(&worldTransform_);
+		if (counter_>=kDeadTime) {
+			isDead_ = true; // 死亡アニメーションが終わったら、敵を削除するフラグを立てる
+
+		}
 
 		break;
 	
@@ -44,7 +72,7 @@ void Enemy::Update() {
 	
 
 
-	WorldTransformUpdate(&worldTransform_);
+	
 };
 void Enemy::Draw(){
 

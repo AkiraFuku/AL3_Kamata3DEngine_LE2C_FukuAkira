@@ -49,5 +49,8 @@ private:
 	bool isDead_ = false;  ///< 死亡フラグ
 	Behavior behavior_ = Behavior::kWalk;  ///< 行動状態
 	Behavior behaviorRequest_ = Behavior::kUnknown; ///< 要求された行動状態
+ 
+	static inline const float kDeadTime = 1.0f; ///< 死亡時間
+	float counter_ = 0.0f;                      ///< カウンター
 };
  

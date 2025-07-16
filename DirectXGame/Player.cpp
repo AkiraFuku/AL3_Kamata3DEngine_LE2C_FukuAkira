@@ -163,7 +163,8 @@ void Player::BehaviorRootInitialize() {}
 
 void Player::BehaviorAttackInitialize() { attackParameter_ = 0; }
 
-bool Player::isAttack() { 
+
+bool Player::isAttack() const{ 
 	
 if (behavior_== Behavior::kAttack) {
 		return true;
