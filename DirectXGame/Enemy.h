@@ -10,6 +10,13 @@ class Player;
 
 class Enemy {
 public:
+	enum class Behavior {
+		
+		kUnknown, ///< 未知の行動
+		kWalk,    ///< 生存行動
+		kDead,    ///< 死亡行動
+
+	};
 	void Initialize(Model* model,Camera* camera,Vector3& position);
 	/// <summary>
 	/// 更新
@@ -39,6 +46,8 @@ private:
 	static inline const float kWidth = 0.8f; ///< キャラクターの幅
 	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
 	static inline const float kBlank = 0.04f; ///< キャラクターの余白
-	bool isDead_ = false;                     ///< 死亡フラグ
+	bool isDead_ = false;  ///< 死亡フラグ
+	Behavior behavior_ = Behavior::kWalk;  ///< 行動状態
+	Behavior behaviorRequest_ = Behavior::kUnknown; ///< 要求された行動状態
 };
  

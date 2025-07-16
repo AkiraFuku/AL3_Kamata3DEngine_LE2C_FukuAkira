@@ -3,6 +3,7 @@
 #include <numbers>
 #include "Enemy.h"
 #include "Math.h"
+#include "Player.h"
 
 void Enemy::Initialize(Model* model, Camera* camera,Vector3& position) {
 	// NULLチェック
@@ -23,12 +24,24 @@ void Enemy::Initialize(Model* model, Camera* camera,Vector3& position) {
 }
 void Enemy::Update() {
 
-	worldTransform_.translation_+=velocity_;
+	switch (behavior_) {
+	
+	case Enemy::Behavior::kWalk:
+	default:
+		worldTransform_.translation_+=velocity_;
 	walkTimer_+=1.0f/60.0f;
 
 	float param= std::sinf(std::numbers::pi_v<float>*2.0f*walkTimer_/kWalkMotionTime);
 	float degree =kWalkMotionAngleStart+kWalkMotionAngleEnd*(param+1.0f)/2.0f;
 	worldTransform_.rotation_.x=Radian(degree);
+		break;
+	case Enemy::Behavior::kDead:
+
+		break;
+	
+	}
+
+	
 
 
 	WorldTransformUpdate(&worldTransform_);
@@ -60,12 +73,20 @@ return aabb;
 }
 
 void Enemy::OnCollision(const Player* player) {
-(void)player;
+//(void)player;
 	// プレイヤーとの衝突時の処理をここに記述
 	// 例えば、敵を消す、ダメージを与えるなど
 // 今回は何もしない
 // ただし、死亡フラグを立てるなどの処理は行う
 
-	isDead_ = true; // プレイヤーと衝突したら死亡
+	///isDead_ = true; // プレイヤーと衝突したら死亡
+if (behavior_==Behavior::kDead) {
+	return;
+}
+	if (player->isAttack()) {
+		// 敵の振るまいをやられに変更
+		behaviorRequest_ = Behavior::kDead;
 
+		
+	}
 }
