@@ -163,6 +163,15 @@ void Player::BehaviorRootInitialize() {}
 
 void Player::BehaviorAttackInitialize() { attackParameter_ = 0; }
 
+bool Player::isAttack() { 
+	
+if (behavior_== Behavior::kAttack) {
+		return true;
+	}	
+	return false;
+
+}
+
 void Player::Draw() { 
 	
 	model_->Draw(worldTransform_, *camera_);
@@ -500,7 +509,11 @@ AABB Player::GetAABB() {
 }
 
 void Player::OnCollision(const Enemy* enemy) {
+	if (isAttack()) {
+		return;
+	}
 	(void)enemy;
+
 	isDead_ = true;
 	// velocity_+=Vector3(0.0f,kJumpAcceleration/60.0f,0.0f);
 }

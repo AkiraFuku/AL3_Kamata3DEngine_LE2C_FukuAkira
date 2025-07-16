@@ -24,6 +24,8 @@ public:
 	AABB GetAABB();
 	void OnCollision(const Player* player);
 
+	bool IsDead() const { return isDead_; } ///< 死亡フラグの取得
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;    
@@ -37,5 +39,6 @@ private:
 	static inline const float kWidth = 0.8f; ///< キャラクターの幅
 	static inline const float kHeight = 0.8f; ///< キャラクターの高さ
 	static inline const float kBlank = 0.04f; ///< キャラクターの余白
+	bool isDead_ = false;                     ///< 死亡フラグ
 };
  

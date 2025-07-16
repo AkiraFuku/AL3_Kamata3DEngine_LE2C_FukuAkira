@@ -94,6 +94,9 @@ enum Corner {
 	void BehaviorRootInitialize();
 	void BehaviorAttackInitialize();
 
+	// 行動状態の設定
+	bool isAttack();
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;        ///< モデル
