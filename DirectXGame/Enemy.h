@@ -51,6 +51,8 @@ private:
 	Behavior behaviorRequest_ = Behavior::kUnknown; ///< 要求された行動状態
  
 	static inline const float kDeadTime = 1.0f; ///< 死亡時間
+	static inline const float kDeadMotionAngleStart = 0.0f; ///< 死亡モーション開始角度
+	static inline const float kDeadMotionAngleEnd = -60.0f; ///< 死亡時間
 	float counter_ = 0.0f;                      ///< カウンター
 };
  

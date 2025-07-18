@@ -35,7 +35,7 @@ struct AABB {
 };
 bool IsCollision(const AABB&aabb1,const AABB&aabb2);
 
-
+float ToRadian(float degree);
 
 //void MatrixScreenPrintf(int x, int y,const Matrix4x4& m, const char* label);
 //void VectorScreenPrintf( int x, int y,Vector3& vector, const char* label);

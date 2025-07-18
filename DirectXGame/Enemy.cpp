@@ -43,7 +43,7 @@ void Enemy::Update() {
 	switch (behavior_) {
 	
 	case Enemy::Behavior::kWalk:
-	default:
+	default:{
 		worldTransform_.translation_+=velocity_;
 	walkTimer_+=1.0f/60.0f;
 
@@ -52,12 +52,13 @@ void Enemy::Update() {
 	worldTransform_.rotation_.x=Radian(degree);
 	WorldTransformUpdate(&worldTransform_);
 		break;
-	case Enemy::Behavior::kDead:
+	}
+	case Enemy::Behavior::kDead:{
 		// 死亡時の処理
 		// 死亡アニメーションの時間を経過させる
 		counter_ += 1.0f / 60.0f; // 1フレーム分の時間を引く
 		worldTransform_.rotation_.y+=0.3f ; // Y座標を下げる
-		worldTransform_.rotation_.x=EaseOut();
+		worldTransform_.rotation_.x=EaseOut(ToRadian(kDeadMotionAngleStart),ToRadian(kDeadMotionAngleEnd),counter_/kDeadTime);
 
 		WorldTransformUpdate(&worldTransform_);
 		if (counter_>=kDeadTime) {
@@ -66,7 +67,7 @@ void Enemy::Update() {
 		}
 
 		break;
-	
+	}
 	}
 
 	
