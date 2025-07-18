@@ -70,6 +70,9 @@ void GameScene::CheckAllCollisions() {
 	aabb1 = player_->GetAABB();
 	// 敵キャラ
 	for (Enemy* enemy : enemies_) {
+		if (enemy->IsCollisionDisabled()) {
+			continue; // 衝突判定を無効にしている敵はスキップ
+		}
 		aabb2 = enemy->GetAABB();
 		if (IsCollision(aabb1, aabb2)) {
 			player_->OnCollision(enemy);

@@ -116,6 +116,8 @@ if (behavior_==Behavior::kDead) {
 		// 敵の振るまいをやられに変更
 		behaviorRequest_ = Behavior::kDead;
 
+		isCollisionDisabled_ = true; // 衝突を無効化
+
 		
 	}
 }

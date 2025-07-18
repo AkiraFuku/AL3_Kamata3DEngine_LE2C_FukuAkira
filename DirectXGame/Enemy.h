@@ -33,6 +33,8 @@ public:
 
 	bool IsDead() const { return isDead_; } ///< 死亡フラグの取得
 
+	bool IsCollisionDisabled() const { return isCollisionDisabled_; } ///< 衝突無効フラグの取得
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;    
@@ -53,6 +55,8 @@ private:
 	static inline const float kDeadTime = 1.0f; ///< 死亡時間
 	static inline const float kDeadMotionAngleStart = 0.0f; ///< 死亡モーション開始角度
 	static inline const float kDeadMotionAngleEnd = -60.0f; ///< 死亡時間
-	float counter_ = 0.0f;                      ///< カウンター
+	float counter_ = 0.0f;///< カウンター
+	
+	bool isCollisionDisabled_ = false; ///< 衝突無効フラグ
 };
  
