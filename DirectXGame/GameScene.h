@@ -9,7 +9,7 @@
 #include "Enemy.h"
 #include "DeathParticles.h"
 #include "Fade.h"
-
+#include "HitEffect.h"
 using namespace KamataEngine ;
 
 
@@ -65,6 +65,10 @@ private:
 	 
 	 // フェード
 	 Fade* fade_ = nullptr;
+
+	 // ヒットエフェクト
+	 HitEffect* hitEffect_ = nullptr;
+	 Model* hitEffectModel_ = nullptr;
 	 
 
 public:
