@@ -1,7 +1,16 @@
 #include "HitEffect.h"
-void HitEffect::Initialize(const Vector3& position){}
-void HitEffect::Update(){}
-void HitEffect::Draw(){}
+#include "MassFunction.h"
+void HitEffect::Initialize(const Vector3& position){
+
+	circleWorldTransform_.translation_=position;
+}
+void HitEffect::Update(){
+
+WorldTransformUpdate(&circleWorldTransform_);
+}
+void HitEffect::Draw(){
+	model_->Draw(circleWorldTransform_,*camera_);
+}
 HitEffect* HitEffect::Create(const Vector3& position){ 
 	HitEffect* instance = new HitEffect();
 	

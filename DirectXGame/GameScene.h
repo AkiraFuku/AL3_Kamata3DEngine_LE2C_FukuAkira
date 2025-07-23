@@ -67,8 +67,9 @@ private:
 	 Fade* fade_ = nullptr;
 
 	 // ヒットエフェクト
-	 HitEffect* hitEffect_ = nullptr;
+	 
 	 Model* hitEffectModel_ = nullptr;
+	 std::list<HitEffect*> hitEffects_;
 	 
 
 public:

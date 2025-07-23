@@ -39,6 +39,9 @@ GameScene::~GameScene() {
 	delete fade_;
 
 	delete hitEffectModel_;
+	for (HitEffect* hitEffect:hitEffects_){
+	delete hitEffect;
+	}
 }
 // ゲームシーンのブロック生成
 void GameScene::GenerateBlock() {
@@ -233,6 +236,9 @@ void GameScene::Update() {
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();	
 		}
+		for (HitEffect* hitEffect:hitEffects_){
+			hitEffect->Update();
+		}
 		
 		///// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -334,6 +340,10 @@ void GameScene::Draw() {
 	Sprite::PreDraw(dxCommon->GetCommandList());
 	fade_->Draw();
 	Sprite::PostDraw();
+
+	for (HitEffect* hitEffect:hitEffects_){
+	hitEffect->Draw();
+	}
 
 #ifdef _DEBUG
 	if (Input::GetInstance()->TriggerKey(DIK_TAB)) {

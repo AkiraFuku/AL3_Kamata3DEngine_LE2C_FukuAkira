@@ -13,4 +13,6 @@ private:
 void Initialize(const Vector3& position) ;
 	static Model* model_ ;
 	static Camera* camera_;
+	// 円形エフェクト
+	WorldTransform circleWorldTransform_;
 };
