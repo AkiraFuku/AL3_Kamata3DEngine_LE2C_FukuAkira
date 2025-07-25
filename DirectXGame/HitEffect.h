@@ -15,4 +15,6 @@ void Initialize(const Vector3& position) ;
 	static Camera* camera_;
 	// 円形エフェクト
 	WorldTransform circleWorldTransform_;
+	static const inline uint32_t kellipseEffectNum = 2;
+	std::array<WorldTransform,kellipseEffectNum>ellipseWorldTransforms_;
 };
