@@ -186,6 +186,15 @@ void GameScene::ChangePhase() {
 
 // ゲームシーンの更新
 void GameScene::Update() {
+		hitEffects_.remove_if([](HitEffect *hitEffect) {
+		if (hitEffect->IsDead()) {
+			delete hitEffect;
+
+			return true;
+		}
+		return false;
+	});
+
 	enemies_.remove_if([](Enemy* enemy) {
 
 		if (enemy->IsDead()) {
@@ -218,6 +227,9 @@ void GameScene::Update() {
 		// エネミー
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();	
+		}
+		for (HitEffect* hitEffect:hitEffects_){
+			hitEffect->Update();
 		}
 		// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -279,7 +291,9 @@ void GameScene::Update() {
 		if (deathParticles_) {
 			deathParticles_->Update();
 		}
-		
+		for (HitEffect* hitEffect:hitEffects_){
+			hitEffect->Update();
+		}
 		///// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* WorldTransformBlock : worldTransformBlockLine) {
@@ -303,6 +317,9 @@ void GameScene::Update() {
 		cameraControlle_->Update();
 		for (Enemy* enemy: enemies_) {
 			enemy->Update();	
+		}
+		for (HitEffect* hitEffect:hitEffects_){
+			hitEffect->Update();
 		}
 		break;
 	}

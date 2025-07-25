@@ -15,7 +15,7 @@ public:
 	static void SetCamera(Camera* camera) { camera_ = camera; }
 	static HitEffect* Create(const Vector3& position) ;
 
-	bool isDead() const {return state_==State::kDead;}
+	bool IsDead() const {return state_==State::kDead;}
 private:
 	HitEffect()=default;
 

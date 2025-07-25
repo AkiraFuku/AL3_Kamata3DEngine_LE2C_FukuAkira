@@ -27,13 +27,13 @@ void HitEffect::Initialize(const Vector3& position){
 	objectColor_.Initialize();
 }
 void HitEffect::Update(){
-	if (isDead()) {
+	if (IsDead()) {
 	 return;
 	}
 	switch (state_) {
 	case HitEffect::State::kSpread:{
 		++counter_;
-		float scale= 0.5f+ static_cast<float>(counter_)/kSpreadTime*0.5;
+		float scale= 0.5f+ static_cast<float>(counter_)/kSpreadTime*0.5f;
 		const float slashScale = 2.0f;
 		for (WorldTransform& worldTransform:ellipseWorldTransforms_) {
 			worldTransform.scale_={0.1f,scale*slashScale,1.0f};
@@ -69,7 +69,7 @@ WorldTransformUpdate(&circleWorldTransform_);
 void HitEffect::Draw(){
 	assert(model_);
 	assert(camera_);
-	if (isDead()) {
+	if (IsDead()) {
 	 return;
 	}
 	for (WorldTransform& worldTransform:ellipseWorldTransforms_) {
