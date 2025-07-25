@@ -1,7 +1,13 @@
 #include "HitEffect.h"
 #include "MassFunction.h"
-void HitEffect::Initialize(const Vector3& position){
 
+
+Model* HitEffect::model_ = nullptr;
+Camera* HitEffect::camera_ = nullptr;
+
+
+void HitEffect::Initialize(const Vector3& position){
+	circleWorldTransform_.Initialize();
 	circleWorldTransform_.translation_=position;
 }
 void HitEffect::Update(){

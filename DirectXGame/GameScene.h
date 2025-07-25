@@ -70,6 +70,8 @@ private:
 	 
 	 Model* hitEffectModel_ = nullptr;
 	 std::list<HitEffect*> hitEffects_;
+
+	
 	 
 
 public:
@@ -91,5 +93,5 @@ public:
 
 	// ゲーム終了
 	bool IsFinished() const { return finished_; }
-	
+	 void CreateHitEffect(const Vector3 & position);
 };

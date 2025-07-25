@@ -127,6 +127,7 @@ float EaseInOut(float s,float g ,float t);
 	/// <param name="v">ベクトル</param>
 	/// <returns>ベクトル＊スカラー</returns>
 	Vector3 Multiply(float scalar,const Vector3& v);
+	Vector3 Division(const Vector3& v,float scalar);
 	/// <summary>
 	/// DOT
 	/// </summary>

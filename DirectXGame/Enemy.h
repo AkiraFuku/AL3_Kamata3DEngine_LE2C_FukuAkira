@@ -4,9 +4,11 @@
 #include <numbers>
 #include <algorithm>
 
+
 using namespace KamataEngine;
 
 class Player;
+class GameScene;
 
 class Enemy {
 public:
@@ -35,6 +37,8 @@ public:
 
 	bool IsCollisionDisabled() const { return isCollisionDisabled_; } ///< 衝突無効フラグの取得
 
+	void setGameScene(GameScene*gameScene){ gameScene_=gameScene;}
+
 private:
 	WorldTransform worldTransform_; ///< ワールドトランスフォーム
 	Model* model_ = nullptr;    
@@ -58,5 +62,8 @@ private:
 	float counter_ = 0.0f;///< カウンター
 	
 	bool isCollisionDisabled_ = false; ///< 衝突無効フラグ
+	GameScene*gameScene_=nullptr;
+
+	
 };
  

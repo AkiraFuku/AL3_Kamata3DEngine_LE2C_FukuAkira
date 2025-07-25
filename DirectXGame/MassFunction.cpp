@@ -445,7 +445,17 @@ Matrix4x4 MakeRotateZMatrix(float radian)
 			scalar * v.z
 		};
 		return result;
+    }
+
+    Vector3 Division(const Vector3& v, float scalar) {
+		Vector3 result = {
+			v.x/scalar,
+			v.y/scalar,
+			v.z/scalar
+		};
+		return result;
 	}
+   
 	//
 	float Dot(const Vector3& v1, const Vector3& v2){
 		

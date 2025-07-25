@@ -4,8 +4,10 @@
 #include "Enemy.h"
 #include "Math.h"
 #include "Player.h"
+#include "HitEffect.h"
+#include "GameScene.h"
 
-void Enemy::Initialize(Model* model, Camera* camera,Vector3& position) {
+void Enemy::Initialize(Model* model, Camera* camera,Vector3& position ) {
 	// NULLチェック
 	assert(model);
 
@@ -20,6 +22,8 @@ void Enemy::Initialize(Model* model, Camera* camera,Vector3& position) {
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> * 3.0f / 2.0f;
 	velocity_={-kWalkSpeed,0.0f,0.0f};
 	walkTimer_=0.0f;
+
+
 
 }
 void Enemy::Update() {
@@ -116,8 +120,14 @@ if (behavior_==Behavior::kDead) {
 		// 敵の振るまいをやられに変更
 		behaviorRequest_ = Behavior::kDead;
 
+		Vector3 effectPos=Division(Add(worldTransform_.translation_,player->GetWorldTransform().translation_),2.0f);
+		gameScene_->CreateHitEffect(effectPos);
+		
+
 		isCollisionDisabled_ = true; // 衝突を無効化
 
 		
 	}
 }
+
+

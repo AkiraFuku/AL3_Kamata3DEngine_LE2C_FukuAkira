@@ -5,6 +5,8 @@ using namespace KamataEngine;
 // GameScene::GameScene() {}
 //
 
+
+
 GameScene::~GameScene() {
 	delete player_;
 	delete model_;
@@ -139,6 +141,8 @@ void GameScene::Initialize() {
 		Enemy* newEnemy = new Enemy();
 		Vector3 enemyPosition = mapchipField_->GetmapChipPositionIndex(14 + i * 2, 18);
 		newEnemy->Initialize(enemy_model_, &camera_, enemyPosition);
+
+		newEnemy->setGameScene(this);
 		enemies_.push_back(newEnemy);
 	}
 	// デスパーティクル
@@ -335,15 +339,16 @@ void GameScene::Draw() {
 	if (deathParticles_) {
 		deathParticles_->Draw();
 	}
+	for (HitEffect* hitEffect:hitEffects_){
+	hitEffect->Draw();
+	}
 	Model::PostDraw();
 
 	Sprite::PreDraw(dxCommon->GetCommandList());
 	fade_->Draw();
 	Sprite::PostDraw();
 
-	for (HitEffect* hitEffect:hitEffects_){
-	hitEffect->Draw();
-	}
+	
 
 #ifdef _DEBUG
 	if (Input::GetInstance()->TriggerKey(DIK_TAB)) {
@@ -363,4 +368,9 @@ void GameScene::Draw() {
 	} else {
 		camera_.TransferMatrix();
 	}
+}
+void GameScene::CreateHitEffect(const Vector3& position) {
+	HitEffect* newHiteFFect= HitEffect::Create(position);
+	hitEffects_.push_back(newHiteFFect);
+
 }
